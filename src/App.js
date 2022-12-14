@@ -7,6 +7,7 @@ import Category from "./categories/categories";
 import CheckoutPage from "./checkout/checkout.component"
 import SignInAndSignUpPage from "./signinsignup/sign-in-and-sign-up.component";
 import { useSelector} from "react-redux";
+import React, { Component } from 'react';
 function App(props) {
   const state = useSelector((state) => state);
   return (

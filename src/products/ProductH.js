@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Util from "../util/util";
 import { connect } from "react-redux";
-
+import React, { Component } from 'react';
 import { addItem } from "../redux/cart/cart.actions";
 function ProductH(props) {
   const price = 10000;

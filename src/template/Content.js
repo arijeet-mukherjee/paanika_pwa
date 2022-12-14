@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 function Content(props) {
   return (
     <main className="flex-shrink-0 bg-light">

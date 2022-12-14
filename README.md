@@ -1,2 +1,2 @@
-# react-ecommerce-nellzcart
-Bootstrap e-commerce template in written React JS. [Live Preview](https://nellzcart-website.herokuapp.com/#/)
+# react-ecommerce-paanika
+Bootstrap e-commerce template in written React JS. [Live Preview](https://paanika-website.herokuapp.com/#/)

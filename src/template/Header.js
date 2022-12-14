@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "./logo.webp";
 import {selectCurrentUser} from "../redux/user/user.selectors";
 import { connect , useSelector} from "react-redux";
+import React, { Component } from 'react';
 function Header(props) {
 
   const [openedDrawer, setOpenedDrawer] = useState(false)

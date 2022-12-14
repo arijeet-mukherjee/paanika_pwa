@@ -1,6 +1,6 @@
 import Image from "../nillkin-case.webp";
 import { Link } from "react-router-dom";
-
+import React, { Component } from 'react';
 function FeatureProduct(props) {
   return (
     <div className="col">
