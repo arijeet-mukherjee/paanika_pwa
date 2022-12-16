@@ -1,4 +1,5 @@
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
 function generateString(length){
         let result = ' ';
         const charactersLength = characters.length;
@@ -32,6 +33,8 @@ const util ={
         'Access-Control-Allow-Origin': '*',            
         'consumer-ip': '1.1.1.1'
     },
+
+    pillNames : ['CATEGORIES', 'STYLE', 'ARTSY', 'PRINTED', 'DESIGNER', 'FABRICS/M', 'BOUTIQUE']
 }
 
 export default util;

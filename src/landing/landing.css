@@ -40,6 +40,9 @@
   transform: rotate(7.77deg);
   padding: 8px;
 }
+.landingbannerItem3{
+  padding: 8px;
+}
 @media (max-width: 850px) {
     .landingBannerContainer {
       flex-direction: column;

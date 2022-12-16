@@ -10,6 +10,8 @@ import  FormData  from "form-data";
 import { connect, useSelector } from "react-redux";
 import s from "./landing.css";
 import {selectCurrentUser} from "../redux/user/user.selectors";
+import Pills from "../components/pills/Pills";
+import Util from "../util/util";
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 function generateString(length) {
@@ -40,6 +42,7 @@ var config = {
 };
 function Landing(props) {
   const [categories , setCategories] = React.useState(null);
+  const [pillNames, setPillNames] = React.useState([]);
   //const [isLoading , setIsLoading] = React.useState(false);
   const posts = useSelector((state) => state);
   console.log(posts);
@@ -61,6 +64,7 @@ function Landing(props) {
           setCategories({data:[{id:1},{id:2}]});
         });
       } 
+      setPillNames(Util.pillNames);
       getCategories();
   },[]);
   useEffect(()=>{
@@ -95,12 +99,12 @@ function Landing(props) {
       </div >
 
       <div className="landingBannerContainer" style={{"margin": "56px 32px 26px 32px", "background": "#fff", "justify-content":"flex-start"}}>
-            <div className="landingbannerItem2">
-                <img
-                      className="d-block w-100 h-100 cover"
-                      alt=""
-                      src={butterfly}
-                    />
+            <div className="landingbannerItem3">
+            {[...pillNames].map((x, i) =>
+              
+              <Pills name ={x} />
+            )}
+                
             </div>
             <div className="landingbannerItem" style={{"height":"auto","color" :"#000"}}>
 
