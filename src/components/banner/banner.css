@@ -1,0 +1,63 @@
+.bannerContainer {
+    display: flex;
+    flex-direction: row;
+    padding: 32px;
+    position: relative;
+}
+.bannerItem {
+    width: 50%;
+    height: 100%;
+    text-align: right;
+    color: white;
+    position: relative;
+}
+.bannerItemImage {
+  padding: 20px;
+}
+.bannerText{
+    text-align: left;
+    font-family: 'Laila';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 56px;
+    line-height: 74px;
+    color: #000000;
+    padding-top: 20px;
+}
+.paraBanner{
+    text-align: left;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25.848px;
+    color: #000000;
+    margin-top: 3px;
+}
+
+.padHeader {
+  padding: 20px 20px 0 20px;
+}
+
+@media (max-width: 800px) {
+    .bannerContainer {
+      flex-direction: column;
+      margin: 1rem;
+      gap: 1;
+      padding: 0px;
+    }
+    .bannerItem {
+        width: 100%;
+        height: 100%;
+        text-align: right;
+        color: white;
+    }
+    .bannerItemImage {
+        padding: 0px;
+      }
+    .bannerText{
+        padding-top: 0px;
+    }
+    .padHeader {
+      padding: 0px;
+    }
+}

@@ -1,12 +1,14 @@
-import Banner from "./Banner";
+import Banner from "../components/banner/banner";
 import FeatureProduct from "./FeatureProduct";
 import ScrollToTopOnMount from "../template/ScrollToTopOnMount";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import React, { useEffect } from "react";
+import butterfly from "./butterfly.png";
 import  FormData  from "form-data";
 import { connect, useSelector } from "react-redux";
+import s from "./landing.css";
 import {selectCurrentUser} from "../redux/user/user.selectors";
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -56,7 +58,7 @@ function Landing(props) {
           //setIsLoading(false);
         })
         .catch(function (error) {
-          console.log(error);
+          setCategories({data:[{id:1},{id:2}]});
         });
       } 
       getCategories();
@@ -69,16 +71,42 @@ function Landing(props) {
     <>
       <ScrollToTopOnMount />
       <Banner />
-      <div className="d-flex flex-column bg-white py-4">
-        <p className="text-center px-5">
-          InstaWorks provide professional services and quality products in the electrical, technological, automated and essential fields. Catering to both domestic and commercial customers.
-        </p>
-        <div className="d-flex justify-content-center">
-          <Link to="/products" className="btn btn-primary" replace>
-            Browse products
-          </Link>
-        </div>
+
+      <div className="landingBannerContainer" style={{"border": "1px solid #000000","border-radius": "12px","margin": "56px 32px 26px 32px"}}>
+            <div className="landingbannerItem" style={{"height":"auto","color" :"#000"}}>
+                  <div className="carousel bannerText">
+                        <span style={{display:'block'}}>
+                        Know your Paanika
+                        </span>
+                   </div>
+                   <p className="paraBanner">
+                   Paanika is an online fashion store that sells handwoven fabrics and<br/>handcrafted items made by artisans all over India.
+                   We bring the best of Indian <br/>heritage to life by weaving traditional fabrics into clothing such as sarees,<br/> kurtas, suits,
+                   and more for men, women, and children!
+                   </p>
+            </div>
+            <div className="landingbannerItem2">
+                <img
+                      className="d-block w-100 h-100 cover"
+                      alt=""
+                      src={butterfly}
+                    />
+            </div>
+      </div >
+
+      <div className="landingBannerContainer" style={{"margin": "56px 32px 26px 32px", "background": "#fff", "justify-content":"flex-start"}}>
+            <div className="landingbannerItem2">
+                <img
+                      className="d-block w-100 h-100 cover"
+                      alt=""
+                      src={butterfly}
+                    />
+            </div>
+            <div className="landingbannerItem" style={{"height":"auto","color" :"#000"}}>
+
+            </div>
       </div>
+     
       <h2 className="text-muted text-center mt-4 mb-3">All Cateogies</h2>
       <div className="container pb-5 px-lg-5">
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 px-md-5">
@@ -86,20 +114,6 @@ function Landing(props) {
             console.log(_.icon);
             return <FeatureProduct id = {_.categories_id} key={_.categories_id} src={'https://instaworksbyarijeet.games/'+_.icon} name={_.categories_name} total_product={_.total_products}/>;
           })}
-        </div>
-      </div>
-      <div className="d-flex flex-column bg-white py-4">
-        <h5 className="text-center mb-3">Follow us on</h5>
-        <div className="d-flex justify-content-center">
-          <a href="!#" className="me-3">
-            <FontAwesomeIcon icon={["fab", "facebook"]} size="2x" />
-          </a>
-          <a href="!#">
-            <FontAwesomeIcon icon={["fab", "instagram"]} size="2x" />
-          </a>
-          <a href="!#" className="ms-3">
-            <FontAwesomeIcon icon={["fab", "twitter"]} size="2x" />
-          </a>
         </div>
       </div>
     </>

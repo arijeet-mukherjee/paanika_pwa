@@ -1,0 +1,28 @@
+.footer{
+    height: auto;
+    background: #DFABE2;
+}
+
+.footerText{
+    position: absolute;
+    width: 189px;
+    height: 20.37px;
+    left: 35px;
+    top: 32px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 23.465px;
+    line-height: 28px;
+
+    color: #000000;
+}
+
+@media (max-width: 800px) {
+    .flexContainerFooter {
+      flex-direction: column;
+      margin: 1rem;
+      gap: 1;
+    }
+  }

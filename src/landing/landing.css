@@ -1,0 +1,72 @@
+.landingBannerContainer {
+    display: flex;
+    flex-direction: row;
+    padding: 12px;
+    position: relative;
+    justify-content: center;
+    background: #DFABE2;
+}
+.landingbannerItem {
+    flex-basis: 65%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    text-align: right;
+    color: white;
+    position: relative;
+}
+.bannerItemImage {
+  padding: 20px;
+}
+.bannerText{
+    text-align: left;
+    font-family: 'Laila';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 56px;
+    line-height: 74px;
+    color: #000000;
+    padding-top: 20px;
+}
+.paraBanner{
+    text-align: left;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25.848px;
+    color: #000000;
+    margin-top: 3px;
+}
+.landingbannerItem2{
+  transform: rotate(7.77deg);
+  padding: 8px;
+}
+@media (max-width: 850px) {
+    .landingBannerContainer {
+      flex-direction: column;
+      margin: 1rem;
+      gap: 1;
+      padding: 0px;
+    }
+    .landingbannerItem {
+        width: 100%;
+        text-align: right;
+        color: white;
+        flex-basis: 200px;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+    .bannerItemImage {
+        padding: 0px;
+      }
+    .bannerText{
+        padding-top: 0px;
+    }
+    .landingbannerItem {
+      padding: 8px;
+    }
+  }
+@media (min-width:920px) {
+  .landingbannerItem {
+    padding: 10px 10px 10px 66px;
+  }
+}
