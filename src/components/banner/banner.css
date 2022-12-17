@@ -38,6 +38,10 @@
   padding: 20px 20px 0 20px;
 }
 
+.btn :hover {
+  background-color: #F76566;
+}
+
 @media (max-width: 800px) {
     .bannerContainer {
       flex-direction: column;
@@ -60,4 +64,20 @@
     .padHeader {
       padding: 0px;
     }
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+  color: #000;
+  background-color: #DFABE2;
+  border-color: #FF8998; /*set the color you want here*/
+}
+
+.btn:hover {
+  color: #000;
+  background-color: #DFABE2;
+  border-color: #FF8998;
+} 
+.btn-outline-dark:hover{
+  color: #000;
+  background-color: #DFABE2;
+  border-color: #FF8998;
 }

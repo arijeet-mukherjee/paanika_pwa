@@ -6,6 +6,13 @@
     justify-content: center;
     background: #DFABE2;
 }
+.flexLandColumn{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    flex-basis: 100%;
+    flex-wrap: nowrap;
+}
 .landingbannerItem {
     flex-basis: 65%;
     flex-grow: 0;
@@ -43,6 +50,10 @@
 .landingbannerItem3{
   padding: 8px;
 }
+.flexProduct{
+  display: flex;
+  flex-direction: column;
+}
 @media (max-width: 850px) {
     .landingBannerContainer {
       flex-direction: column;
@@ -66,6 +77,11 @@
     }
     .landingbannerItem {
       padding: 8px;
+    }
+    .flexProduct{
+      display: flex;
+      height: auto;
+      flex-direction: column;
     }
   }
 @media (min-width:920px) {

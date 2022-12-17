@@ -1,4 +1,5 @@
 import Banner from "../components/banner/banner";
+import PLand from "../components/products_land/PLand";
 import FeatureProduct from "./FeatureProduct";
 import ScrollToTopOnMount from "../template/ScrollToTopOnMount";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +11,7 @@ import  FormData  from "form-data";
 import { connect, useSelector } from "react-redux";
 import s from "./landing.css";
 import {selectCurrentUser} from "../redux/user/user.selectors";
+import pland1 from "./pland1.png"
 import Pills from "../components/pills/Pills";
 import Util from "../util/util";
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -43,6 +45,7 @@ var config = {
 function Landing(props) {
   const [categories , setCategories] = React.useState(null);
   const [pillNames, setPillNames] = React.useState([]);
+  const product_data = [{"products_id" : "1"},{"products_id" : "2"},{"products_id" : "3"},{"products_id" : "4"}];
   //const [isLoading , setIsLoading] = React.useState(false);
   const posts = useSelector((state) => state);
   console.log(posts);
@@ -106,12 +109,16 @@ function Landing(props) {
             )}
                 
             </div>
-            <div className="landingbannerItem" style={{"height":"auto","color" :"#000"}}>
-
+            <div className="flexLandColumn">
+                <div className="landingbannerItem flexProduct" style={{"color" :"#000"}}>
+                    <PLand products = {product_data} label = {"fdfdfdf"} image={`${pland1}`}/>
+                    <PLand products = {product_data} label = {"fdfdfdf"} image={`${pland1}`}/>
+                </div>
             </div>
+            
       </div>
      
-      <h2 className="text-muted text-center mt-4 mb-3">All Cateogies</h2>
+      {/* <h2 className="text-muted text-center mt-4 mb-3">All Cateogies</h2>
       <div className="container pb-5 px-lg-5">
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 px-md-5">
           {Array.from(categories?categories.data:{length :0}, (_, i) => {
@@ -119,7 +126,7 @@ function Landing(props) {
             return <FeatureProduct id = {_.categories_id} key={_.categories_id} src={'https://instaworksbyarijeet.games/'+_.icon} name={_.categories_name} total_product={_.total_products}/>;
           })}
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

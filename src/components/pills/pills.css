@@ -11,6 +11,9 @@
     background: #DFABE2;
     border-radius: 8px;
 }
+.pills:hover {
+    background-color: #F76566;
+  }
 .textPills{
     width: 143px;
     height: 28px;
