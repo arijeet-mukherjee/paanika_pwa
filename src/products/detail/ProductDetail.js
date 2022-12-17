@@ -10,6 +10,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import ReactHtmlParser from 'react-html-parser'
 import { connect } from "react-redux";
+import s from "./ProductDetail.css"
 
 import { addItem } from "../../redux/cart/cart.actions";
 const iconPath =
@@ -73,7 +74,7 @@ function ProductDetail(props) {
   function changeRating(newRating) {}
   console.log(productDetail ? productImage : '');
   return (
-    isLoading ? < Spinner / > : < div className = "container mt-5 py-4 px-xl-5" >
+    /* isLoading ? < Spinner / > : */ < div className = "container mt-5 py-4 px-xl-5" >
       <ScrollToTopOnMount/>
       <nav aria-label="breadcrumb" className="bg-custom-light rounded mb-4">
         <ol className="breadcrumb p-3">
@@ -85,12 +86,12 @@ function ProductDetail(props) {
           <li className="breadcrumb-item">
             <a className="text-decoration-none link-secondary" href="!#">
               {
-                productDetail ? productDetail[0].categories[0].categories_name : ''
+                productDetail ? productDetail[0].categories[0].categories_name : 'Sarees'
               }
             </a>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
-            {productDetail ? productDetail[0].products_name : ''}
+            {productDetail ? productDetail[0].products_name : 'Benarasi Saree'}
           </li>
         </ol>
       </nav>
@@ -130,39 +131,16 @@ function ProductDetail(props) {
               />
             </div>
           </div>
-
-          {/* <div className="row mt-2">
-            <div className="col-12">
-              <div
-                className="d-flex flex-nowrap"
-                style={{ overflowX: "scroll" }}
-              >
-                {Array.from({ length: 8 }, (_, i) => {
-                  return (
-                    <a key={i} href="!#">
-                      <img
-                        className="cover rounded mb-2 me-2"
-                        width="70"
-                        height="70"
-                        alt=""
-                        src={Image}
-                      />
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-          </div> */}
         </div>
 
         <div className="col-lg-5">
           <div className="d-flex flex-column h-100">
-            <h2 className="mb-1">{productDetail ? productDetail[0].products_name : ''}</h2>
-            <h4 className="text-muted mb-4">${productDetail ? productDetail[0].products_price : ''}</h4>
+            <h2 className="mb-1">{productDetail ? productDetail[0].products_name : 'Benarasi Saree'}</h2>
+            <h4 className="text-muted mb-4">₹{productDetail ? productDetail[0].products_price : '10000'}</h4>
 
             <div className="row g-3 mb-4">
               <div className="col">
-                < button className = "btn btn-outline-dark py-2 w-100"
+                <button className = "btn btn-outline-dark py-2 w-100"
                 onClick = {
                   () => {
                     props.addItem(productDetail[0]);
