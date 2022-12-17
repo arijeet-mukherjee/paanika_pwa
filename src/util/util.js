@@ -11,9 +11,9 @@ function generateString(length){
 }
 const util ={
 
-    baseUrl : "https://instaworksbyarijeet.games/public/api/",
+    baseUrl : "https://b424-116-206-220-173.in.ngrok.io/public/api/",
 
-    imageUrl : 'https://instaworksbyarijeet.games/',
+    imageUrl : 'https://b424-116-206-220-173.in.ngrok.io/',
 
     generateString : (length)=>{
         let result = ' ';

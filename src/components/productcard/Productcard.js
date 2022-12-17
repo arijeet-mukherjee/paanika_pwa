@@ -36,7 +36,7 @@ function Productcard(props) {
           <h5 className="card-title text-center text-dark text-truncate">
             {product_data ? (product_data.products_name) : 'products_name'}
           </h5>
-          <p className="card-text text-center text-muted mb-0">${product_data ? (product_data.products_price) : price}</p>
+          <p className="card-text text-center text-muted mb-0">₹{product_data ? (product_data.products_price) : price}</p>
         </div>
       </div>
       

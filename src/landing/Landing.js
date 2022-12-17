@@ -27,7 +27,7 @@ function generateString(length) {
 
     return result;
 }
-const baseUrl = "https://instaworksbyarijeet.games/public/api/";
+const baseUrl = "https://b424-116-206-220-173.in.ngrok.io/public/api/";
 var formdata = new FormData();
 formdata.append("language_id", "1");
 var config = {
@@ -126,7 +126,7 @@ function Landing(props) {
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 px-md-5">
           {Array.from(categories?categories.data:{length :0}, (_, i) => {
             console.log(_.icon);
-            return <FeatureProduct id = {_.categories_id} key={_.categories_id} src={'https://instaworksbyarijeet.games/'+_.icon} name={_.categories_name} total_product={_.total_products}/>;
+            return <FeatureProduct id = {_.categories_id} key={_.categories_id} src={'https://b424-116-206-220-173.in.ngrok.io/'+_.icon} name={_.categories_name} total_product={_.total_products}/>;
           })}
         </div>
       </div> */}

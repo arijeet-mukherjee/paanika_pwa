@@ -1,0 +1,34 @@
+.bg-custom-light{
+    color: #000;
+    background-color: #DFABE2;
+    border-color: #FF8998;
+    margin: 5px;
+}
+.breadcrumb-item .link-secondary{
+    color: #000;
+}
+.breadcrumb-item .link-secondary:hover{
+    color: #fff;
+}
+.breadcrumb-item.active {
+    color: #ffffff;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #000;
+    background-color: #DFABE2;
+    border-color: #FF8998; /*set the color you want here*/
+}
+
+.btn:hover {
+    color: #000;
+    background-color: #DFABE2;
+    border-color: #FF8998;
+} 
+.btn-outline-dark:hover{
+    color: #000;
+    background-color: #DFABE2;
+    border-color: #FF8998;
+}
+.btn-dark{
+    background-color: #DFABE2;
+}
