@@ -12,6 +12,8 @@ import { connect, useSelector } from "react-redux";
 import s from "./landing.css";
 import {selectCurrentUser} from "../redux/user/user.selectors";
 import pland1 from "./pland1.png"
+import pland2 from "./pland2.png"
+import pland3 from "./pland3.png"
 import Pills from "../components/pills/Pills";
 import Util from "../util/util";
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -112,7 +114,8 @@ function Landing(props) {
             <div className="flexLandColumn">
                 <div className="landingbannerItem flexProduct" style={{"color" :"#000"}}>
                     <PLand products = {product_data} label = {"fdfdfdf"} image={`${pland1}`}/>
-                    <PLand products = {product_data} label = {"fdfdfdf"} image={`${pland1}`}/>
+                    <PLand products = {product_data} label = {"fdfdfdf"} image={`${pland2}`}/>
+                    <PLand products = {product_data} label = {"fdfdfdf"} image={`${pland3}`}/>
                 </div>
             </div>
             

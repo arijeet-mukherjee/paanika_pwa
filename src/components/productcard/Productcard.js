@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import cartLogo from "./cart.png"
 import wishLogo from "./wish.png"
+
 function Productcard(props) {
   const price = 10000;
   const[product_data, setProductData] = useState([]);
@@ -40,7 +41,7 @@ function Productcard(props) {
       </div>
       
       <div className="d-flex flex-row">
-            <button className = "btn btn-outline-dark flex-fill bd-highlight m-1"
+            <button className = "btn btn-outline-dark flex-fill bd-highlight mt-1 mr-1 mb-1"
             onClick = {
               () => {
                 props.addItem(product_data);
@@ -48,7 +49,7 @@ function Productcard(props) {
             } >
               <img alt="Paanika" src={wishLogo} height="20px" width="23px"></img> WISHLIST
             </button>
-            <button className = "btn btn-outline-dark flex-fill bd-highlight m-1"
+            <button className = "btn btn-outline-dark flex-fill bd-highlight mt-1 mb-1 ml-1" style={{"marginRight": "0.20rem", "whiteSpace": "nowrap"}}
             onClick = {
               () => {
                 props.addItem(product_data);
@@ -60,7 +61,9 @@ function Productcard(props) {
     </div>
   );
 }
+
 const mapDispatchToProps = (dispatch) => ({
   addItem: (item) => dispatch(addItem(item)),
 });
+
 export default connect(null, mapDispatchToProps)(Productcard);

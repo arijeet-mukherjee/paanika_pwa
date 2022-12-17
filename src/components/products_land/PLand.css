@@ -16,3 +16,27 @@
     flex-basis: 100%;
     flex-wrap: nowrap;
 }
+
+.row3 {
+    box-sizing: border-box;
+
+display: flex;
+text-align: center;
+align-items: center;
+justify-content: center;
+width: 254px;
+height: 38px;
+align-items: center;
+background: #DFABE2;
+border: 1px solid #000000;
+border-radius: 8px;
+}
+
+.flexLandRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-basis: auto;
+    text-align: center;
+    margin-right: calc(var(--bs-gutter-x) / -2);
+}
