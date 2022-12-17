@@ -21,7 +21,7 @@ function PLand(props) {
   },[]);
   return (
     <div className="flexLandColumn m-1" style={{"margin-bottom" : "20px","display" :'flex'}}>
-        <div class="d-flex flex-column justify-content-center m-lg-1" style={{"backgroundImage" : `url(${image})`,"backgroundSize": "cover", "height" :"180px", "width" : "100%"}}>
+        <div class="d-flex flex-column justify-content-center m-lg-1" style={{"backgroundImage" : `url(${image})`,"backgroundSize": "cover", "height" :"180px"}}>
             
         </div>
         <div class="row">
