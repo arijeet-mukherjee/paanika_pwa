@@ -18,7 +18,7 @@ function Productcard(props) {
   return (
     <div className="col ms-1">
       <div className="card">
-        <Link to = {"/products/"+ product_data ? (product_data.products_id) :'id'}
+        <Link to = {"/products/"+ (product_data ? (product_data.products_id) :'id')}
         href = "!#"
         replace >
             <img
