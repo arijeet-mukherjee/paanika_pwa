@@ -23,7 +23,7 @@ function Productcard(props) {
         replace >
             <img
             className="card-img-top bg-dark cover"
-            height="320px"
+            height="280px"
             width={"250px"}
             alt=""
             src = {
