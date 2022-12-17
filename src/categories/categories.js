@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import Product from "../products/Product";
-import ProductH from "../products/ProductH";
+//import Product from "../products/Product";
+//import ProductH from "../products/ProductH";
+import Productcard from "../components/productcard/Productcard";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ScrollToTopOnMount from "../template/ScrollToTopOnMount";
@@ -10,6 +11,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { connect } from "react-redux";
+import s from './categories.css'
 
 import { addItem } from "../redux/cart/cart.actions";
 
@@ -119,7 +121,7 @@ function FilterMenuLeft() {
             />
             <label htmlFor="floatingInput">Max Price</label>
           </div>
-          <button className="btn btn-dark">Apply</button>
+          <button className="btn btn-dark" style={{ "background" : "#DFABE2" }}>Apply</button>
         </div>
       </li>
     </ul>
@@ -141,6 +143,8 @@ function ProductList() {
   const [page, setPage] = React.useState(null);
 
   const [browse , setBrowse] = React.useState(null); 
+  const temp_data = [{"products_id" : "1"},{"products_id" : "2"},{"products_id" : "3"},{"products_id" : "4"}];
+
 
   const location = useLocation()
   const pathname = location.pathname;
@@ -225,7 +229,8 @@ function ProductList() {
   return (
     <div className="container mt-5 py-4 px-xl-5">
       <ScrollToTopOnMount />
-      <nav aria-label="breadcrumb" className="bg-custom-light rounded">
+
+      <nav aria-label="breadcrumb" className="bg-custom-light rounded" style={{ "background" : "#DFABE2"}}>
         <ol className="breadcrumb p-3 mb-0">
           <li className="breadcrumb-item">
             <Link
@@ -324,13 +329,14 @@ function ProductList() {
                     placeholder="Search products..."
                     aria-label="search input"
                   />
-                  <button className="btn btn-outline-dark">
+                  <button className="btn btn-outline-dark" style={{ "background" : "#DFABE2"}}>
                     <FontAwesomeIcon icon={["fas", "search"]} />
                   </button>
                 </div>
                 <button
                   className="btn btn-outline-dark ms-2 d-none d-lg-inline"
                   onClick={changeViewType}
+                  style={{ "background" : "#DFABE2"}}
                 >
                   <FontAwesomeIcon
                     icon={["fas", viewType.grid ? "th-list" : "th-large"]}
@@ -353,11 +359,11 @@ function ProductList() {
                     }, (_, i) => {
                 if (viewType.grid) {
                   return (
-                    <Product key={i} percentOff={null} productdata={_}/>
+                    <Productcard key={i} products={_}/>
                   );
                 }
                 return (
-                  <ProductH key={i} percentOff={null} productdata={_}/>
+                  <Productcard key={i} products={_}/>
                 );
               })}
             </div>
