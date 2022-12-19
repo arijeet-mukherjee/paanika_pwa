@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 function generateString(length){
@@ -11,9 +13,13 @@ function generateString(length){
 }
 const util ={
 
-    baseUrl : "https://b424-116-206-220-173.in.ngrok.io/public/api/",
+    baseUrl : "http://admin.paanika.com/api/client/",
 
-    imageUrl : 'https://b424-116-206-220-173.in.ngrok.io/',
+    imageUrl : 'http://admin.paanika.com/gallary/',
+
+    clientsecret : "sk_1234",
+    
+    clientid : "1234",
 
     generateString : (length)=>{
         let result = ' ';
@@ -26,15 +32,38 @@ const util ={
     },
 
     header :{
-        'consumer_secret': '8464dfefecf7f555d49cce041116bbd5', 
-        'consumer-key': '85614bbbcb0cb1bf0494983ea67b3a85', 
-        'consumer-device-id': generateString(14), 
-        'consumer-nonce': generateString(14), 
-        'Access-Control-Allow-Origin': '*',            
-        'consumer-ip': '1.1.1.1'
+        'clientsecret': 'sk_1234', 
+        'clientid': '1234',
+        'Access-Control-Allow-Origin': '*'
     },
 
-    pillNames : ['CATEGORIES', 'STYLE', 'ARTSY', 'PRINTED', 'DESIGNER', 'FABRICS/M', 'BOUTIQUE']
+    pillNames : ['CATEGORIES', 'STYLE', 'ARTSY', 'PRINTED', 'DESIGNER', 'FABRICS/M', 'BOUTIQUE'],
+
+    apiCall : async (method, baseUrl, endurl, header, key , value)=>{
+        var formdata = new FormData();
+        if(key && value){
+            formdata.append(key,value);
+        }
+        var config = {
+            method: method,
+            url: baseUrl+endurl,
+            headers: header,
+            data : formdata ? formdata : ''
+        };
+        return new Promise((resolve,reject)=>{
+            axios(config)
+            .then(
+            response => response.data 
+            )
+            .then((data)=>{
+            resolve(data);
+            //setIsLoading(false);
+            })
+            .catch(function (error) {
+            reject(error);
+            });
+        });
+    },
 }
 
 export default util;

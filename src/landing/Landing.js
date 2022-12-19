@@ -57,20 +57,21 @@ function Landing(props) {
       function getCategories(){
         config.headers["consumer-nonce"] = generateString(15);
         config.headers["consumer-device-id"] = generateString(16);
-        axios(config)
-        .then(
-          response => response.data 
-        )
-        .then((data)=>{
-          setCategories(data);
-          //setIsLoading(false);
-        })
-        .catch(function (error) {
-          setCategories({data:[{id:1},{id:2}]});
-        });
+        // axios(config)
+        // .then(
+        //   response => response.data 
+        // )
+        // .then((data)=>{
+        //   setCategories(data);
+        //   //setIsLoading(false);
+        // })
+        // .catch(function (error) {
+        //   setCategories({data:[{id:1},{id:2}]});
+        // });
       } 
       setPillNames(Util.pillNames);
       getCategories();
+      Util.apiCall('GET', Util.baseUrl ,'category?limit=200000&sortBy=id&sortType=ASC&getDetail=1&getGallary=1', Util.header).then((s)=>{console.log(s)}).catch((e)=>{console.log(e)});
   },[]);
   useEffect(()=>{
     console.log("Saving State");
