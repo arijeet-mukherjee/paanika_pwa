@@ -1,0 +1,9 @@
+.outerbox {
+    margin-top: 70px;
+    display: flex;
+    flex-direction: row;
+    padding: 32px;
+    position: relative;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+}
