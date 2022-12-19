@@ -1,9 +1,38 @@
 .outerbox {
-    margin-top: 70px;
+    margin-top: 110px;
+    margin-left: 32px;
+    margin-right: 32px;
+    margin-bottom: 32px;
+    padding: 8px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 32px;
     position: relative;
-    background: #FFFFFF;
+    box-sizing: border-box;
+    background: #fff;
     border: 1px solid #000000;
+    border-radius: 8px;
 }
+.spanHead{
+    display: flex;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25.5789px;
+    line-height: 31px;
+    color: #000000;
+}
+.spanBody{
+    display: flex;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18.5789px;
+    line-height: 31px;
+    color: #000000;
+}
+@media (max-width: 850px) {
+    .outerbox {
+        margin: 80px 4px 10px 4px;
+    }
+  }
