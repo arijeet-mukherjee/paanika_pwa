@@ -8,6 +8,9 @@ import CheckoutPage from "./checkout/checkout.component"
 import SignInAndSignUpPage from "./signinsignup/sign-in-and-sign-up.component";
 import { useSelector} from "react-redux";
 import React, { Component } from 'react';
+import Refund from "./refund/Refund";
+
+
 function App(props) {
   const state = useSelector((state) => state);
   return (
@@ -39,6 +42,9 @@ function App(props) {
               )
             }
           />
+          <Route path="/toc">
+            <Refund />
+          </Route>
       </Switch>
     </Template>
   );

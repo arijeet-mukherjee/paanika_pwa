@@ -174,16 +174,13 @@ function ProductList() {
   }
 
   function getallCategories() {
-    axios(configCategories)
-      .then((response) => response.data)
-      .then((data) => {
-        setCategories(data);
+
+    Util.apiCall('GET', Util.baseUrl ,'category?limit=200000&sortBy=id&sortType=ASC&getDetail=1&getGallary=1', Util.header)
+      .then((s)=>{
+        setCategories(s)      
         setIsLoading(false)
-        //setIsLoading(false);
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+      .catch((e)=>{console.log(e)});
   }
 
   function pageHandler(pagenumber) {
@@ -221,7 +218,7 @@ function ProductList() {
   if(allcategories){
     
     const tempArr = Array.from(allcategories.data,(_,i)=>{
-      return _.categories_name;
+      return _.name;
     });
     categoriesData = Array.from(allcategories.data);
     categories = tempArr;
@@ -252,7 +249,7 @@ function ProductList() {
           {categoriesData.map((v, i) => {
             return (
               < div key = {
-                v.categories_id
+                v.id
               }
               className = "h-link me-2" >
                 <Link
@@ -261,7 +258,7 @@ function ProductList() {
                   replace
                 >
                   {
-                    v.categories_name
+                    v.name
                   }
                 </Link>
               </div>
