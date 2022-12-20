@@ -25,13 +25,13 @@ function Footer() {
       </div>
       <div className="d-flex flex-column py-4">
         <div className="d-flex justify-content-center flexContainerFooter">
-          <a href="!#" className="me-5">
+          <a href="/#/toc" className="me-5">
             <span className={s.footerText}>PRIVACY POLICY</span>
           </a>
-          <a href="!#" className="me-5">
+          <a href="/#/toc" className="me-5">
              <span className={s.footerText}>RETURN POLICY</span>
           </a>
-          <a href="!#" className="me-5">
+          <a href="/#/toc" className="me-5">
             <span className={s.footerText}>DELIVERY POLICY</span>
           </a>
         </div>

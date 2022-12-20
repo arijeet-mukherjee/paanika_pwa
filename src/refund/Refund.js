@@ -52,3 +52,4 @@ const Refund = () => {
 }
 
 export default Refund
+// http://admin.paanika.com/api/client/products
