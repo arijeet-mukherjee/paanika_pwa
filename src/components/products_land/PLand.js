@@ -20,7 +20,7 @@ function PLand(props) {
     setImage(props.image);
   },[]);
 
-  const getProductCard = products.map((v, i) => {
+  const getProductCard = props.products.map((v, i) => {
       return (
           <Productcard products={v} />
       );

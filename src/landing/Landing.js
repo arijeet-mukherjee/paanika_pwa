@@ -70,15 +70,9 @@ function Landing(props) {
     getDupattaCategories()
   },[]);
 
-  const sareeList = sareeCategories.map(({product_id, detail})=>{
-    return detail;
-  });
-  const dressList = dressCategories.map(({product_id, detail})=>{
-    return <PLand products = { detail } label = {"fdfdfdf"} image={`${pland2}`}/>;
-  });
-  const dupattaList = dupattaCategories.map(({product_id, detail})=>{
-    return <PLand products = { detail } label = {"fdfdfdf"} image={`${pland3}`}/>;
-  });
+  const sareeList = [...sareeCategories];
+  const dressList = [...dressCategories];
+  const dupattaList = [...dupattaList];
 
   return (
     <>
@@ -117,9 +111,9 @@ function Landing(props) {
             </div>
             <div className="flexLandColumn">
                 <div className="landingbannerItem flexProduct" style={{"color" :"#000"}}>
-                    {<PLand products = { sareeList } label = {"fdfdfdf"} image={`${pland1}`}/>}
-                    {dressList}
-                    {dupattaList}
+                    {<PLand products = { sareeList  } label = {"fdfdfdf"} image={`${pland1}`}/>}
+                    {<PLand products = { dressList  } label = {"fdfdfdf"} image={`${pland2}`}/>}
+                    {<PLand products = { dupattaList } label = {"fdfdfdf"} image={`${pland3}`}/>}
                 </div>
             </div>
             
