@@ -12,13 +12,20 @@ function PLand(props) {
   const[label, setLabel] = useState('');
   useEffect(()=>{
     setProductData(props.products);
-  },[products]);
+  },[]);
   useEffect(()=>{
     setLabel(props.label);
-  },[label]);
+  },[]);
   useEffect(()=>{
     setImage(props.image);
   },[]);
+
+  const getProductCard = products.map((v, i) => {
+      return (
+          <Productcard products={v} />
+      );
+  }) ;
+  
   return (
     <div className="flexLandColumn m-1" style={{"margin-bottom" : "20px","display" :'flex'}}>
         <div class="d-flex flex-column justify-content-center m-lg-1" style={{"backgroundImage" : `url(${image})`,"backgroundSize": "100% 100%", "height" :"140px"}}>
@@ -26,12 +33,8 @@ function PLand(props) {
         </div>
         <div class="row">
         {
-        products ? [...products].map((v, i) => {
-            return (
-                <Productcard products={v} />
-            );
-          }) : ''
-      }
+          getProductCard
+        }
         </div>
         <div className="flexLandRow">
         <div class="row3">

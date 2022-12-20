@@ -18,65 +18,68 @@ import Pills from "../components/pills/Pills";
 import Util from "../util/util";
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-function generateString(length) {
-    let result = ' ';
-    const charactersLength = characters.length;
-    for ( let i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-
-    return result;
-}
-const baseUrl = "https://b424-116-206-220-173.in.ngrok.io/public/api/";
-var formdata = new FormData();
-formdata.append("language_id", "1");
-var config = {
-  method: 'post',
-  url: baseUrl+'allcategories',
-  headers: { 
-    'consumer_secret': '8464dfefecf7f555d49cce041116bbd5', 
-    'consumer-key': '85614bbbcb0cb1bf0494983ea67b3a85', 
-    'consumer-device-id': '', 
-    'consumer-nonce': '', 
-    'Access-Control-Allow-Origin': '*',
-        
-    'consumer-ip': '1.1.1.1'
-  },
-  data : formdata
-};
 function Landing(props) {
-  const [categories , setCategories] = React.useState(null);
+  const [sareeCategories , setSareeCategories] = React.useState([]);
+  const [dressCategories , setDressCategories] = React.useState([]);
+  const [dupattaCategories , setDupattaCategories] = React.useState([]);
   const [pillNames, setPillNames] = React.useState([]);
-  const product_data = [{"products_id" : "1"},{"products_id" : "2"},{"products_id" : "3"},{"products_id" : "4"}];
+  //const product_data = [{"products_id" : "1"},{"products_id" : "2"},{"products_id" : "3"},{"products_id" : "4"}];
   //const [isLoading , setIsLoading] = React.useState(false);
   const posts = useSelector((state) => state);
   console.log(posts);
-
   React.useEffect(()=>{
-      //setIsLoading(true);
-      function getCategories(){
-        config.headers["consumer-nonce"] = generateString(15);
-        config.headers["consumer-device-id"] = generateString(16);
-        // axios(config)
-        // .then(
-        //   response => response.data 
-        // )
-        // .then((data)=>{
-        //   setCategories(data);
-        //   //setIsLoading(false);
-        // })
-        // .catch(function (error) {
-        //   setCategories({data:[{id:1},{id:2}]});
-        // });
-      } 
       setPillNames(Util.pillNames);
-      getCategories();
-      Util.apiCall('GET', Util.baseUrl ,'category?limit=200000&sortBy=id&sortType=ASC&getDetail=1&getGallary=1', Util.header).then((s)=>{console.log(s)}).catch((e)=>{console.log(e)});
   },[]);
-  useEffect(()=>{
-    console.log("Saving State");
-  },[categories]);
-  console.log(categories);
+  function getSareeCategories(){
+    Util.apiCall('GET', Util.baseUrl ,'products?stock=1&limit=4&language_id=1&currency=2&getCategory=1&getDetail=1&productCategories=1&isFeatured=1', Util.header)
+    .then((s)=>{
+      console.log("Sarees",s);
+      setSareeCategories(s.data);
+    })
+    .catch((e)=>{
+      console.log(e)
+    });
+  }
+  function getDressCategories(){
+    Util.apiCall('GET', Util.baseUrl ,'products?stock=1&limit=4&language_id=1&currency=2&getCategory=1&getDetail=1&productCategories=3&isFeatured=1', Util.header)
+    .then((s)=>{
+        console.log("Dress",s);
+        setDressCategories(s.data);
+      })
+    .catch((e)=>{
+        console.log(e)
+      });
+  }
+  function getDupattaCategories(){
+    Util.apiCall('GET', Util.baseUrl ,'products?stock=1&limit=4&language_id=1&currency=2&getCategory=1&getDetail=1&productCategories=2&isFeatured=1', Util.header)
+    .then((s)=>{
+        console.log("Dupatta",s);
+        setDupattaCategories(s.data);
+      })
+    .catch((e)=>{
+        console.log(e)
+      });
+  }
+  React.useEffect(()=>{
+    getSareeCategories()
+  },[]);
+  React.useEffect(()=>{
+    getDressCategories()
+  },[]);
+  React.useEffect(()=>{
+    getDupattaCategories()
+  },[]);
+
+  const sareeList = sareeCategories.map(({product_id, detail})=>{
+    return detail;
+  });
+  const dressList = dressCategories.map(({product_id, detail})=>{
+    return <PLand products = { detail } label = {"fdfdfdf"} image={`${pland2}`}/>;
+  });
+  const dupattaList = dupattaCategories.map(({product_id, detail})=>{
+    return <PLand products = { detail } label = {"fdfdfdf"} image={`${pland3}`}/>;
+  });
+
   return (
     <>
       <ScrollToTopOnMount />
@@ -114,9 +117,9 @@ function Landing(props) {
             </div>
             <div className="flexLandColumn">
                 <div className="landingbannerItem flexProduct" style={{"color" :"#000"}}>
-                    <PLand products = {product_data} label = {"fdfdfdf"} image={`${pland1}`}/>
-                    <PLand products = {product_data} label = {"fdfdfdf"} image={`${pland2}`}/>
-                    <PLand products = {product_data} label = {"fdfdfdf"} image={`${pland3}`}/>
+                    {<PLand products = { sareeList } label = {"fdfdfdf"} image={`${pland1}`}/>}
+                    {dressList}
+                    {dupattaList}
                 </div>
             </div>
             
