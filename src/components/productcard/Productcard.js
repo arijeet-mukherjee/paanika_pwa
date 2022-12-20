@@ -11,14 +11,14 @@ import wishLogo from "./wish.png"
 
 function Productcard(props) {
   const price = 10000;
-  const[product_data, setProductData] = useState([]);
+  const[product_data, setProductData] = useState('');
   useEffect(()=>{
     setProductData(props.products);
-  },[product_data]);
+  },[]);
   return (
     <div className="col ms-1">
       <div className="card">
-        <Link to = {"/products/"+ (product_data ? (product_data.products_id) :'id')}
+        <Link to = {"/products/"+ (product_data ? (product_data.product_id) :'id')}
         href = "!#"
         replace >
             <img
