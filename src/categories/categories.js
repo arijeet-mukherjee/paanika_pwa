@@ -161,16 +161,25 @@ function ProductList() {
     if(pagenumber){
       config.data.page_number = pagenumber;
     }
-    axios(config)
-      .then((response) => response.data)
-      .then((data) => {
-        setAllProducts(data);
-        setIsLoading(false);
-        //setIsLoading(false);
+
+    Util.apiCall('GET', Util.baseUrl ,'products?language_id=1&currency=2', Util.header)
+      .then((s)=>{
+        setAllProducts(s)
+        console.log('category page')
+        console.log(s)      
+        setIsLoading(false)
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+      .catch((e)=>{console.log(e)});
+
+    // axios(config)
+    //   .then((response) => response.data)
+    //   .then((data) => {
+    //     setAllProducts(data);
+    //     setIsLoading(false);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   }
 
   function getallCategories() {
@@ -342,7 +351,7 @@ function ProductList() {
               </div>
             </div>
             {
-              isLoading ? < Spinner / > : 
+              isLoading ? < Spinner /> : 
             
             <div
               className={
