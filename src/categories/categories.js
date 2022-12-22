@@ -162,14 +162,17 @@ function ProductList() {
       config.data.page_number = pagenumber;
     }
 
-    Util.apiCall('GET', Util.baseUrl ,'products?language_id=1&currency=2', Util.header)
-      .then((s)=>{
-        setAllProducts(s)
-        console.log('category page')
-        console.log(s)      
+    Util.apiCall('GET', Util.baseUrl ,'products?getCategory=1&getDetail=1&brandId=1&productCategories=1&stock=1&limit=10', Util.header)
+      .then((dt)=>{
+        console.log(dt,"sucess wala") 
+        setAllProducts(dt.data)   
+        
         setIsLoading(false)
       })
-      .catch((e)=>{console.log(e)});
+      .catch((e)=>{
+        console.log('this error')
+        console.log(e)
+      });
 
     // axios(config)
     //   .then((response) => response.data)
@@ -215,14 +218,14 @@ function ProductList() {
     setPage(0);
     }, []);
 
-  
+  //const prodList = [...allProducts]
 
   function changeViewType() {
     setViewType({
       grid: !viewType.grid,
     });
   }
-  console.log(allProducts);
+  //console.log(allProducts);
   
   if(allcategories){
     
