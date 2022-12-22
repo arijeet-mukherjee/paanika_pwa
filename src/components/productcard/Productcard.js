@@ -6,8 +6,10 @@ import React, { Component } from 'react';
 import { addItem } from "../../redux/cart/cart.actions";
 import { useState } from "react";
 import { useEffect } from "react";
-import cartLogo from "./cart.png"
-import wishLogo from "./wish.png"
+import cartLogo from "./cart.png";
+import wishLogo from "./wish.png";
+import Util from "../../util/util";
+
 
 function Productcard(props) {
   const price = 10000;
@@ -27,16 +29,15 @@ function Productcard(props) {
             width={"250px"}
             alt=""
             src = {
-              //product_data ? (Util.imageUrl+product_data.products_image) : Image
-              Image
+              product_data ? (Util.imageUrl+product_data.product_gallary.gallary_name) : Image
             }
           />
         </Link>
         <div className="card-body">
           <h5 className="card-title text-center text-dark text-truncate">
-            {product_data ? (product_data.products_name) : 'products_name'}
+            {product_data ? (product_data.detail[0].title) : 'products_name'}
           </h5>
-          <p className="card-text text-center text-muted mb-0">₹{product_data ? (product_data.products_price) : price}</p>
+          <p className="card-text text-center text-muted mb-0">₹{product_data ? (product_data.product_price) : price}</p>
         </div>
       </div>
       

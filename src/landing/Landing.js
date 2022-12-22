@@ -72,7 +72,7 @@ function Landing(props) {
 
   const sareeList = [...sareeCategories];
   const dressList = [...dressCategories];
-  const dupattaList = [...dupattaList];
+  const dupattaList = [...dupattaCategories];
 
   return (
     <>

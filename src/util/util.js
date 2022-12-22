@@ -37,7 +37,7 @@ const util ={
         'Access-Control-Allow-Origin': '*'
     },
 
-    pillNames : ['CATEGORIES', 'STYLE', 'ARTSY', 'PRINTED', 'DESIGNER', 'FABRICS/M', 'BOUTIQUE'],
+    pillNames : ['CATEGORIES', 'SAREE', 'DRESS', 'DUPATTA'],
 
     apiCall : async (method, baseUrl, endurl, header, key , value)=>{
         var formdata = new FormData();
