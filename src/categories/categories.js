@@ -149,20 +149,9 @@ function ProductList() {
   const location = useLocation()
   const pathname = location.pathname;
   const categoryId = pathname.split('/')[2];
-  
 
-  config.headers["consumer-device-id"] = Util.generateString(14);
-  config.headers["consumer-nonce"] = Util.generateString(14);
-  config.data.categories_id = categoryId; 
-  configCategories.headers["consumer-device-id"] = Util.generateString(14);
-  configCategories.headers["consumer-nonce"] = Util.generateString(14);
-
-  function getallproducts(pagenumber) {
-    if(pagenumber){
-      config.data.page_number = pagenumber;
-    }
-
-    Util.apiCall('GET', Util.baseUrl ,'products?getCategory=1&getDetail=1&brandId=1&productCategories=1&stock=1&limit=10', Util.header)
+  function getallproducts() {
+    Util.apiCall('GET', Util.baseUrl ,`products?getCategory=1&getDetail=1&productCategories=${categoryId}&stock=1&limit=10`, Util.header)
       .then((dt)=>{
         console.log(dt,"sucess wala") 
         setAllProducts(dt.data)   
@@ -173,16 +162,6 @@ function ProductList() {
         console.log('this error')
         console.log(e)
       });
-
-    // axios(config)
-    //   .then((response) => response.data)
-    //   .then((data) => {
-    //     setAllProducts(data);
-    //     setIsLoading(false);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   }
 
   function getallCategories() {
@@ -195,15 +174,15 @@ function ProductList() {
       .catch((e)=>{console.log(e)});
   }
 
-  function pageHandler(pagenumber) {
-    config.data.page_number = pagenumber;
-    config.headers["consumer-device-id"] = Util.generateString(14);
-    config.headers["consumer-nonce"] = Util.generateString(14);
-    getallproducts(pagenumber);
-    console.log('====================================');
-    console.log(pagenumber);
-    console.log('====================================');
-  }
+  // function pageHandler(pagenumber) {
+  //   config.data.page_number = pagenumber;
+  //   config.headers["consumer-device-id"] = Util.generateString(14);
+  //   config.headers["consumer-nonce"] = Util.generateString(14);
+  //   getallproducts(pagenumber);
+  //   console.log('====================================');
+  //   console.log(pagenumber);
+  //   console.log('====================================');
+  // }
 
   function browseHandler(id){
     setBrowse(id);
@@ -363,18 +342,17 @@ function ProductList() {
               }
             >
               {
-                Array.from(allProducts ? allProducts.product_data :{
-                      length: 5
-                    }, (_, i) => {
-                if (viewType.grid) {
-                  return (
-                    <Productcard key={i} products={_}/>
-                  );
-                }
-                return (
-                  <Productcard key={i} products={_}/>
-                );
-              })}
+                allProducts && allProducts.length > 0 ? [...allProducts].map((e,i)=>{
+                  if (viewType.grid) {
+                    return (
+                         <Productcard key={i} products={e}/>
+                       );
+                     }
+                     return (
+                      <Productcard key={i} products={e}/>
+                     );
+                }) :''
+              }
             </div>
             }
             <div className="d-flex align-items-center mt-auto">
@@ -404,7 +382,7 @@ function ProductList() {
                           }
                           onClick = {
                               () => {
-                            pageHandler(i);
+                            //pageHandler(i);
                             setPage(i);
                             setIsLoading(true);
                             }}>
