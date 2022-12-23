@@ -10,7 +10,7 @@
   width: 70px;
   height: 70px;
   border: 10px solid #f3f3f3; /* Light grey */
-  border-top: 10px solid #383636; /* Black */
+  border-top: 10px solid rgb(223, 171, 226); /* Black */
   border-radius: 50%;
   animation: spinner 1.5s linear infinite;
   margin: 30px 30px 30px 30px;
@@ -20,5 +20,7 @@
   text-align: center;
   height: auto;
   width: auto;
-  position: relative;
+  position: absolute;
+  top: 45%;
+  left: 50%;
 }

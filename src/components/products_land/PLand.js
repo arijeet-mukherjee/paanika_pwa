@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import React, { Component } from 'react';
 import { addItem } from "../../redux/cart/cart.actions";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import Productcard from "../productcard/Productcard";
 
@@ -38,7 +39,7 @@ function PLand(props) {
         </div>
         <div className="flexLandRow">
         <div class="row3">
-            Discover More
+            <Link to="/products" style={{"text-decoration": "auto"}}>Discover More</Link>
         </div>
         </div>
     </div>

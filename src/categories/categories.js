@@ -13,6 +13,7 @@ import { useLocation } from 'react-router-dom';
 import { connect } from "react-redux";
 import s from './categories.css'
 
+import { useHistory} from "react-router-dom";
 import { addItem } from "../redux/cart/cart.actions";
 
 var categories = ["Security"];
@@ -22,111 +23,7 @@ var categoriesData =[
     categories_name: 'Security'
   }
 ];
-const config = {
-  method: "post",
-  url: Util.baseUrl + "getallproducts",
-  headers: Util.header,
-  data: {
-    page_number: 0,
-    language_id: 1,
-    customers_id: "",
-    categories_id: "",
-    products_id: "",
-    type: "",
-    filters: "",
-    price: "",
-    currency_code: "USD",
-    multiple_products_id: "",
-    vendors_id: "",
-  },
-};
 
-var formdata = new FormData();
-formdata.append("language_id", "1");
-var configCategories = {
-  method: 'post',
-  url: Util.baseUrl + 'allcategories',
-  headers: Util.header,
-  data: formdata
-};
-
-function FilterMenuLeft() {
-  return (
-    <ul className="list-group list-group-flush rounded">
-      <li className="list-group-item d-none d-lg-block">
-        <h5 className="mt-1 mb-2">All Categories</h5>
-        <div className="d-flex flex-wrap my-2">
-          {categories.map((v, i) => {
-            return (
-              <Link
-                key={i}
-                to="/products"
-                className="btn btn-sm btn-outline-dark rounded-pill me-2 mb-2"
-                replace
-              >
-                {v}
-              </Link>
-            );
-          })}
-        </div>
-      </li>
-      {/* <li className="list-group-item">
-        <h5 className="mt-1 mb-1">Brands</h5>
-        <div className="d-flex flex-column">
-          {brands.map((v, i) => {
-            return (
-              <div key={i} className="form-check">
-                <input className="form-check-input" type="checkbox" />
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                  {v}
-                </label>
-              </div>
-            );
-          })}
-        </div>
-      </li> */}
-      {/* <li className="list-group-item">
-        <h5 className="mt-1 mb-1">Manufacturers</h5>
-        <div className="d-flex flex-column">
-          {manufacturers.map((v, i) => {
-            return (
-              <div key={i} className="form-check">
-                <input className="form-check-input" type="checkbox" />
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                  {v}
-                </label>
-              </div>
-            );
-          })}
-        </div>
-      </li> */}
-      <li className="list-group-item">
-        <h5 className="mt-1 mb-2">Price Range</h5>
-        <div className="d-grid d-block mb-3">
-          <div className="form-floating mb-2">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Min"
-              defaultValue="0"
-            />
-            <label htmlFor="floatingInput">Min Price</label>
-          </div>
-          <div className="form-floating mb-2">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Max"
-              defaultValue="50000"
-            />
-            <label htmlFor="floatingInput">Max Price</label>
-          </div>
-          <button className="btn btn-dark" style={{ "background" : "#DFABE2" }}>Apply</button>
-        </div>
-      </li>
-    </ul>
-  );
-}
 
 function ProductList() {
 
@@ -134,28 +31,118 @@ function ProductList() {
 
   const [viewType, setViewType] = useState({ grid: true });
 
-  const [allProducts, setAllProducts] = React.useState(null);
+  const [allProducts, setAllProducts] = React.useState([]);
 
   const [allcategories , setCategories] = React.useState(null);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [page, setPage] = React.useState(null);
-
+  const [page, setPage] = React.useState(0);
+  const [totalPage, setTotalPage] = React.useState(null);
   const [browse , setBrowse] = React.useState(null); 
   const temp_data = [{"products_id" : "1"},{"products_id" : "2"},{"products_id" : "3"},{"products_id" : "4"}];
 
+  let navigate = useHistory(); 
+  const routeChange = (path) =>{ 
+    navigate.push(path);
+  }
 
   const location = useLocation()
   const pathname = location.pathname;
-  const categoryId = pathname.split('/')[2];
+  const [categoryId, setCategoryId] = useState(pathname.split('/')[2]);
 
-  function getallproducts() {
-    Util.apiCall('GET', Util.baseUrl ,`products?getCategory=1&getDetail=1&productCategories=${categoryId}&stock=1&limit=10`, Util.header)
+  function FilterMenuLeft() {
+    return (
+      <ul className="list-group list-group-flush rounded">
+        <li className="list-group-item d-none d-lg-block">
+          <h5 className="mt-1 mb-2">All Categories</h5>
+          <div className="d-flex flex-wrap my-2">
+            {categories.map((v, i) => {
+              return (
+                <div
+                  key={i}
+                  onClick={
+                    () => {
+                      setCategoryId("/category/"+(i+1));
+                      getallproducts();
+                      routeChange("/category/"+(i+1));
+                      window.location.reload();
+                    }
+                  
+                  }
+                  className={"btn btn-sm btn-outline-dark rounded-pill me-2 mb-2"+ (categoryId-1 === i ? ' active' : '')}
+                >
+                  {v}
+                </div>
+              );
+            })}
+          </div>
+        </li>
+        {/* <li className="list-group-item">
+          <h5 className="mt-1 mb-1">Brands</h5>
+          <div className="d-flex flex-column">
+            {brands.map((v, i) => {
+              return (
+                <div key={i} className="form-check">
+                  <input className="form-check-input" type="checkbox" />
+                  <label className="form-check-label" htmlFor="flexCheckDefault">
+                    {v}
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+        </li> */}
+        {/* <li className="list-group-item">
+          <h5 className="mt-1 mb-1">Manufacturers</h5>
+          <div className="d-flex flex-column">
+            {manufacturers.map((v, i) => {
+              return (
+                <div key={i} className="form-check">
+                  <input className="form-check-input" type="checkbox" />
+                  <label className="form-check-label" htmlFor="flexCheckDefault">
+                    {v}
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+        </li> */}
+        <li className="list-group-item">
+          <h5 className="mt-1 mb-2">Price Range</h5>
+          <div className="d-grid d-block mb-3">
+            <div className="form-floating mb-2">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Min"
+                defaultValue="0"
+              />
+              <label htmlFor="floatingInput">Min Price</label>
+            </div>
+            <div className="form-floating mb-2">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Max"
+                defaultValue="50000"
+              />
+              <label htmlFor="floatingInput">Max Price</label>
+            </div>
+            <button className="btn btn-dark" style={{ "background" : "#DFABE2" }}>Apply</button>
+          </div>
+        </li>
+      </ul>
+    );
+  }
+
+  async function getallproducts(i) {
+    let queryParam = i ? `&page=${i+1}` : '';
+    Util.apiCall('GET', Util.baseUrl ,`products?getCategory=1&getDetail=1&productCategories=${categoryId}&stock=1&limit=2${queryParam}`, Util.header)
       .then((dt)=>{
         console.log(dt,"sucess wala") 
         setAllProducts(dt.data)   
-        
+        setTotalPage(dt.meta["last_page"]);
         setIsLoading(false)
       })
       .catch((e)=>{
@@ -244,7 +231,7 @@ function ProductList() {
               }
               className = "h-link me-2" >
                 <Link
-                  to="/products"
+                  to={"/category/"+v.id}
                   className="btn btn-sm btn-outline-dark rounded-pill"
                   replace
                 >
@@ -358,7 +345,7 @@ function ProductList() {
             <div className="d-flex align-items-center mt-auto">
               <span className="text-muted small d-none d-md-inline">
                 Showing {page+1} of {
-                  allProducts ? Math.floor(allProducts.total_record / 10) : 1
+                  totalPage ? totalPage : 1
                 }
               </span>
               <nav aria-label="Page navigation example" className="ms-auto">
@@ -370,7 +357,7 @@ function ProductList() {
                   </li>
                   {
                     Array.from({
-                      length: allProducts?(allProducts.total_record / 10) : 1
+                      length: totalPage ? totalPage : 1
                     },(_,i)=>{
                       return(
                         < li className = {
@@ -383,8 +370,9 @@ function ProductList() {
                           onClick = {
                               () => {
                             //pageHandler(i);
-                            setPage(i);
                             setIsLoading(true);
+                            setPage(i);
+                            getallproducts(i);
                             }}>
                             {i+1}
                           </button>

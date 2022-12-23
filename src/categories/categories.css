@@ -1,0 +1,7 @@
+.btn-check:checked + .btn-outline-dark, .btn-check:active + .btn-outline-dark, .btn-outline-dark:active, .btn-outline-dark.active, .btn-outline-dark.dropdown-toggle.show {
+    background: rgb(223, 171, 226);
+}
+
+.page-item.active .page-link {
+    background: rgb(223, 171, 226);
+}
