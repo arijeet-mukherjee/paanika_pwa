@@ -162,7 +162,7 @@ function ProductList() {
       config.data.page_number = pagenumber;
     }
 
-    Util.apiCall('GET', Util.baseUrl ,'products?getCategory=1&getDetail=1&brandId=1&productCategories=1&stock=1&limit=10', Util.header)
+    Util.apiCall('GET', Util.baseUrl ,'products?getCategory=1&getDetail=1&productCategories=1&stock=1&limit=10', Util.header)
       .then((dt)=>{
         console.log(dt,"sucess wala") 
         setAllProducts(dt.data)   
@@ -218,7 +218,7 @@ function ProductList() {
     setPage(0);
     }, []);
 
-  //const prodList = [...allProducts]
+  // const prodList = [...allProducts]
 
   function changeViewType() {
     setViewType({
@@ -363,7 +363,7 @@ function ProductList() {
               }
             >
               {
-                Array.from(allProducts ? allProducts.product_data :{
+                Array.from(allProducts ? allProducts.data :{
                       length: 5
                     }, (_, i) => {
                 if (viewType.grid) {
