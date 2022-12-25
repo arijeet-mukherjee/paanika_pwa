@@ -35,10 +35,12 @@ function ProductList() {
 
   const [allcategories , setCategories] = React.useState(null);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const [page, setPage] = React.useState(0);
   const [totalPage, setTotalPage] = React.useState(null);
+  const [fromPrice, setFromPrice] = React.useState(0);
+  const [toPrice, setToPrice] = React.useState(10000);
   const [browse , setBrowse] = React.useState(null); 
   const temp_data = [{"products_id" : "1"},{"products_id" : "2"},{"products_id" : "3"},{"products_id" : "4"}];
 
@@ -66,6 +68,7 @@ function ProductList() {
                       setCategoryId("/category/"+(i+1));
                       getallproducts();
                       routeChange("/category/"+(i+1));
+                      window.location.href = window.location.href;
                       window.location.reload();
                     }
                   
@@ -108,42 +111,49 @@ function ProductList() {
             })}
           </div>
         </li> */}
+        
         <li className="list-group-item">
           <h5 className="mt-1 mb-2">Price Range</h5>
           <div className="d-grid d-block mb-3">
             <div className="form-floating mb-2">
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 placeholder="Min"
-                defaultValue="0"
+                onChange={handleChangeFrom}
+                defaultValue={fromPrice}
               />
               <label htmlFor="floatingInput">Min Price</label>
             </div>
             <div className="form-floating mb-2">
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 placeholder="Max"
-                defaultValue="50000"
+                onChange={handleChangeTo}
+                defaultValue={toPrice}
               />
               <label htmlFor="floatingInput">Max Price</label>
             </div>
-            <button className="btn btn-dark" style={{ "background" : "#DFABE2" }}>Apply</button>
+            <button className="btn btn-dark" style={{ "background" : "#DFABE2" }} onClick={()=>{
+              setIsLoading(true);
+              getallproducts(page,fromPrice,toPrice);
+            }}>Apply</button>
           </div>
         </li>
       </ul>
     );
   }
 
-  async function getallproducts(i) {
+  async function getallproducts(i, fromPrice, toPrice) {
     let queryParam = i ? `&page=${i+1}` : '';
-    Util.apiCall('GET', Util.baseUrl ,`products?getCategory=1&getDetail=1&productCategories=${categoryId}&stock=1&limit=2${queryParam}`, Util.header)
+    let queryParamPriceRange = fromPrice!==undefined && toPrice!==undefined ? `&price_from=${fromPrice}&price_to=${toPrice}` :'';
+    Util.apiCall('GET', Util.baseUrl ,`products?getCategory=1&getDetail=1&productCategories=${categoryId}&stock=1&limit=2${queryParam}${queryParamPriceRange}`, Util.header)
       .then((dt)=>{
         console.log(dt,"sucess wala") 
         setAllProducts(dt.data)   
         setTotalPage(dt.meta["last_page"]);
-        setIsLoading(false)
+        setIsLoading(false);
       })
       .catch((e)=>{
         console.log('this error')
@@ -161,15 +171,13 @@ function ProductList() {
       .catch((e)=>{console.log(e)});
   }
 
-  // function pageHandler(pagenumber) {
-  //   config.data.page_number = pagenumber;
-  //   config.headers["consumer-device-id"] = Util.generateString(14);
-  //   config.headers["consumer-nonce"] = Util.generateString(14);
-  //   getallproducts(pagenumber);
-  //   console.log('====================================');
-  //   console.log(pagenumber);
-  //   console.log('====================================');
-  // }
+  function handleChangeFrom(event) {
+    setFromPrice(event.target.value);
+  }
+
+  function handleChangeTo(event) {
+    setToPrice(event.target.value);
+  }
 
   function browseHandler(id){
     setBrowse(id);
@@ -202,7 +210,7 @@ function ProductList() {
     categories = tempArr;
   }
   return (
-    <div className="container mt-5 py-4 px-xl-5">
+    <div className="container mt-5 py-4 px-xl-1">
       <ScrollToTopOnMount />
 
       <nav aria-label="breadcrumb" className="bg-custom-light rounded" style={{ "background" : "#DFABE2"}}>
@@ -372,7 +380,7 @@ function ProductList() {
                             //pageHandler(i);
                             setIsLoading(true);
                             setPage(i);
-                            getallproducts(i);
+                            getallproducts(i,fromPrice,toPrice);
                             }}>
                             {i+1}
                           </button>
