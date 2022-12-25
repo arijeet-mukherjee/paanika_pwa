@@ -148,7 +148,7 @@ function ProductList() {
   async function getallproducts(i, fromPrice, toPrice) {
     let queryParam = i ? `&page=${i+1}` : '';
     let queryParamPriceRange = fromPrice!==undefined && toPrice!==undefined ? `&price_from=${fromPrice}&price_to=${toPrice}` :'';
-    Util.apiCall('GET', Util.baseUrl ,`products?getCategory=1&getDetail=1&productCategories=${categoryId}&stock=1&limit=5${queryParam}${queryParamPriceRange}`, Util.header)
+    Util.apiCall('GET', Util.baseUrl ,`products?getCategory=1&getDetail=1&productCategories=${categoryId}&stock=1&limit=4${queryParam}${queryParamPriceRange}`, Util.header)
       .then((dt)=>{
         console.log(dt,"sucess wala") 
         setAllProducts(dt.data)   
