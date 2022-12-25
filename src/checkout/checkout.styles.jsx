@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CheckoutPageContainer = styled.div`
   background-color: #DFABE2;
   width: 85%;
-  min-height: 90vh;
+  min-height: auto;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -52,3 +52,16 @@ export const WarningContainer = styled.div`
   font-size: 24px;
   color: red;
 `;
+
+export const HoverContainer = styled.div`
+  flex : 1 0;
+    &:hover .btn-dark {
+      background: #000;
+      color : #fff;
+    }
+    &:hover .btn {
+      background: #000;
+      color : #fff;
+    }
+`;
+

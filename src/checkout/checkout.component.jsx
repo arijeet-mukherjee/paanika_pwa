@@ -15,6 +15,7 @@ import {
   HeaderBlockContainer,
   TotalContainer,
   WarningContainer,
+  HoverContainer
 } from "./checkout.styles";
 
 const CheckoutPage = ({ cartItems, total }) => (
@@ -40,13 +41,13 @@ const CheckoutPage = ({ cartItems, total }) => (
       <CheckoutItem key={cartItem.id} cartItem={cartItem} />
     ))}
     <TotalContainer>TOTAL: ₹{total}</TotalContainer>
-   <div className="col" >
-                <button className="btn btn-dark py-2 w-100" style={{"background": "#000"}} onClick = {
+   <HoverContainer>
+                <button className="btn btn-dark py-2 w-100" onClick = {
                   () => {
                     window.alert("Will be available soon!");
                   }
                 }>Buy now</button>
-    </div>
+    </HoverContainer>
     {/* <StripeCheckoutButton price={total} /> */}
   </CheckoutPageContainer>
 );
