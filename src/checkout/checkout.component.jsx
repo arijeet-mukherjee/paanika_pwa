@@ -39,9 +39,9 @@ const CheckoutPage = ({ cartItems, total }) => (
     {cartItems.map((cartItem) => (
       <CheckoutItem key={cartItem.id} cartItem={cartItem} />
     ))}
-    <TotalContainer>TOTAL: ${total}</TotalContainer>
-   <div className="col">
-                <button className="btn btn-dark py-2 w-100"  onClick = {
+    <TotalContainer>TOTAL: ₹{total}</TotalContainer>
+   <div className="col" >
+                <button className="btn btn-dark py-2 w-100" style={{"background": "#000"}} onClick = {
                   () => {
                     window.alert("Will be available soon!");
                   }

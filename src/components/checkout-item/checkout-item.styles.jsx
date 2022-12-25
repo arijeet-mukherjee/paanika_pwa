@@ -4,10 +4,11 @@ export const CheckoutItemContainer = styled.div`
   width: 100%;
   display: flex;
   min-height: 100px;
-  border-bottom: 1px solid darkgrey;
+  border-bottom: 1px solid #1b1b1b;
   padding: 15px 0;
   font-size: 20px;
   align-items: center;
+  text-align: center;
 `;
 
 export const ImageContainer = styled.div`
@@ -25,6 +26,8 @@ export const TextContainer = styled.span`
 
 export const QuantityContainer = styled(TextContainer)`
   display: flex;
+  align-items: flex-center;
+  justify-content: center;
   span {
     margin: 0 10px;
   }
@@ -34,6 +37,8 @@ export const QuantityContainer = styled(TextContainer)`
 `;
 
 export const RemoveButtonContainer = styled.div`
+  align-items: center;
+  text-align: center;
   padding-left: 12px;
   cursor: pointer;
 `;
