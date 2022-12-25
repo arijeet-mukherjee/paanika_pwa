@@ -29,22 +29,22 @@ class SignUp extends React.Component {
     var formdata = new FormData();
     formdata.append("email", email);
     formdata.append("password", password);
-    formdata.append("customers_firstname", firstname);
-    formdata.append("customers_lastname", lastname);
-    formdata.append("customers_telephone", contactnumber);
+    formdata.append("confirm_password", password);
+    formdata.append("first_name", firstname);
+    formdata.append("last_name", lastname);
+    formdata.append("status", "1");
+    formdata.append("session_id",  Util.generateString(14));
     
     var configRegistration = {
       method: 'post',
-      url: Util.baseUrl + 'processregistration',
+      url: Util.baseUrl + 'customer_register',
       headers: Util.header,
       data: formdata
     };
-    configRegistration.headers["consumer-device-id"] = Util.generateString(14);
-    configRegistration.headers["consumer-nonce"] = Util.generateString(14);
     axios(configRegistration)
       .then((response) => response.data)
       .then((data) => {
-        
+        console.log(data);
         if(data.success==="1"){
           this.setState({ fullname : data.data[0].first_name + " " + data.data[0].last_name , userid  : data.data[0].id , email : data.data[0].email  });
           
