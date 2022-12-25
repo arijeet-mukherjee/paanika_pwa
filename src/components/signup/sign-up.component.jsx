@@ -22,6 +22,7 @@ class SignUp extends React.Component {
       email: "",
       password: "",
       confirmPassword: "",
+      token:""
     };
   }
 
@@ -44,11 +45,11 @@ class SignUp extends React.Component {
     axios(configRegistration)
       .then((response) => response.data)
       .then((data) => {
-        console.log(data);
-        if(data.success==="1"){
-          this.setState({ fullname : data.data[0].first_name + " " + data.data[0].last_name , userid  : data.data[0].id , email : data.data[0].email  });
+        console.log(data.data);
+        if(data.data.status==="1"){
+          this.setState({ fullname : data.data.first_name + " " + data.data.last_name , userid  : data.data.id , token : data.data.token});
           
-          this.props.setCurrentUser(this.state);
+          this.props.setCurrentUser(this.state); 
         }
         else{
           window.alert("Something is wrong!! User may exist.");
