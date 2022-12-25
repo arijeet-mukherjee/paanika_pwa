@@ -6,11 +6,12 @@ import cartLogo from "./cart.png"
 import profileLogo from "./profile.png"
 import homeLogo from "./home.png";
 import humbergerLogo from "./humberger.svg";
-import {selectCurrentUser} from "../redux/user/user.selectors";
+import { removeCurrentUser } from "../redux/user/user.actions";
 import { connect , useSelector} from "react-redux";
 import React, { Component } from 'react';
-import s from "./header.css"
-import searchImage from "./search.png"
+import s from "./header.css";
+import searchImage from "./search.png";
+import Util from "../util/util";
 function Header(props) {
 
   const [openedDrawer, setOpenedDrawer] = useState(false)
@@ -23,6 +24,21 @@ function Header(props) {
     if (openedDrawer) {
       setOpenedDrawer(false)
     }
+  }
+
+  function Logout(){
+    let header = Util.header;
+    header['Authorization'] = `Bearer ${state.user.currentUser.token}`;
+
+    Util.apiCall('POST', Util.baseUrl ,`customer_logout`, header)
+      .then((dt)=>{
+        console.log(dt,"sucess wala");
+         props.removeCurrentUser(null);
+      })
+      .catch((e)=>{
+        //console.log('this error')
+        console.log(e)
+      });
   }
 
   return (
@@ -97,6 +113,9 @@ function Header(props) {
                       <span className="dropdown-item">
                         {state.user.currentUser.fullname}
                       </span>
+                      <span className="dropdown-item" onClick={()=>{ Logout()}}>
+                        { "-> LOGOUT" }
+                      </span>
                     </li>
                     </>
                     }
@@ -131,4 +150,8 @@ function Header(props) {
   );
 }
 
-export default connect(null,{selectCurrentUser})(Header);
+const mapDispatchToProps = (dispatch) => ({
+  removeCurrentUser : (item) => dispatch(removeCurrentUser(item))
+});
+
+export default connect(null,mapDispatchToProps)(Header);

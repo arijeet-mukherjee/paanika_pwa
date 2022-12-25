@@ -148,7 +148,7 @@ function ProductList() {
     let queryParam = i ? `&page=${i+1}` : '';
     let queryParamPriceRange = fromPrice!==undefined && toPrice!==undefined ? `&price_from=${fromPrice}&price_to=${toPrice}` :'';
     
-    Util.apiCall('GET', Util.baseUrl ,`products?getCategory=1&getDetail=1&stock=1&limit=2${queryParam}${queryParamPriceRange}`, Util.header)
+    Util.apiCall('GET', Util.baseUrl ,`products?getCategory=1&getDetail=1&stock=1&limit=4${queryParam}${queryParamPriceRange}`, Util.header)
       .then((dt)=>{
         //console.log(dt,"sucess wala") 
         setAllProducts(dt.data)   
@@ -220,7 +220,7 @@ function ProductList() {
     categories = tempArr;
   }
   return (
-    <div className="container mt-5 py-4 px-xl-5">
+    <div className="mt-5 py-5 px-xl-5">
       <ScrollToTopOnMount />
 
       <nav aria-label="breadcrumb" className="bg-custom-light rounded" style={{ "background" : "#DFABE2"}}>

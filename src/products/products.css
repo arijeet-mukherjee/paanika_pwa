@@ -5,3 +5,13 @@
 .page-item.active .page-link {
     background: rgb(223, 171, 226);
 }
+
+@media (min-width: 1200px){
+
+    .row-cols-xl-3 > * {
+        flex: 1;
+        width: 33.3333333333%;
+        max-width: 33.3333333333%;
+    }
+
+}

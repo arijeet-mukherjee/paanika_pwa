@@ -22,7 +22,8 @@ class SignIn extends React.Component {
       email: "",
       password: "",
       fullname :"",
-      userid :""
+      userid :"",
+      token  :""
     };
     
   }
@@ -36,18 +37,16 @@ class SignIn extends React.Component {
     
     var configLogin = {
       method: 'post',
-      url: Util.baseUrl + 'processlogin',
+      url: Util.baseUrl + 'customer_login',
       headers: Util.header,
       data: formdata
     };
-    configLogin.headers["consumer-device-id"] = Util.generateString(14);
-    configLogin.headers["consumer-nonce"] = Util.generateString(14);
     axios(configLogin)
       .then((response) => response.data)
       .then((data) => {
-        
-        if(data.success==="1"){
-          this.setState({ fullname : data.data[0].first_name + " " + data.data[0].last_name , userid  : data.data[0].id });
+        console.log(data.data)
+        if(data.data.status==="1"){
+          this.setState({ fullname : data.data.first_name + " " + data.data.last_name , userid  : data.data.id , token : data.data.token});
           
           this.props.setCurrentUser(this.state); 
         }

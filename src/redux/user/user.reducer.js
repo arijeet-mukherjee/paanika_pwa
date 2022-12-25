@@ -1,5 +1,7 @@
-import { SIGN_IN } from "./user.types";
+import { SIGN_IN, SIGN_OUT } from "./user.types";
 
+
+import {UserActionTypes} from "./user.types"
 const INITIAL_STATE = {
   currentUser: null,
 };
@@ -7,10 +9,15 @@ const INITIAL_STATE = {
 const userReducer = (state = INITIAL_STATE, action) => {
   
   switch (action.type) {
-    case SIGN_IN:
+    case UserActionTypes.SET_CURRENT_USER:
       return {
         ...state,
         currentUser: action.payload,
+      };
+    case UserActionTypes.REMOVE_CURRENT_TYPE:
+      return {
+        ...state,
+        currentUser: null,
       };
     default:
       return state;
