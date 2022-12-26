@@ -65,11 +65,12 @@ function ProductList() {
                   key={i}
                   onClick={
                     () => {
-                      setCategoryId("/category/"+(i+1));
-                      getallproducts();
+                      setIsLoading(true);
+                      setCategoryId((i+1));
+                      getallproducts(undefined, undefined, undefined, (i+1));
                       routeChange("/category/"+(i+1));
-                      window.location.href = window.location.href;
-                      window.location.reload();
+                      // window.location.href = window.location.href;
+                      // window.location.reload();
                     }
                   
                   }
@@ -145,10 +146,10 @@ function ProductList() {
     );
   }
 
-  async function getallproducts(i, fromPrice, toPrice) {
+  async function getallproducts(i, fromPrice, toPrice, catId) {
     let queryParam = i ? `&page=${i+1}` : '';
     let queryParamPriceRange = fromPrice!==undefined && toPrice!==undefined ? `&price_from=${fromPrice}&price_to=${toPrice}` :'';
-    Util.apiCall('GET', Util.baseUrl ,`products?getCategory=1&getDetail=1&productCategories=${categoryId}&stock=1&limit=4${queryParam}${queryParamPriceRange}`, Util.header)
+    Util.apiCall('GET', Util.baseUrl ,`products?getCategory=1&getDetail=1&productCategories=${catId? catId : categoryId}&stock=1&limit=4${queryParam}${queryParamPriceRange}`, Util.header)
       .then((dt)=>{
         console.log(dt,"sucess wala") 
         setAllProducts(dt.data)   
