@@ -5,6 +5,7 @@ import Landing from "./landing/Landing";
 import ProductList from "./products/ProductList";
 import Category from "./categories/categories";
 import CheckoutPage from "./checkout/checkout.component"
+import OrderConfirmPage from "./orderconfirmpage/OrderConfirmPage"
 import SignInAndSignUpPage from "./signinsignup/sign-in-and-sign-up.component";
 import { useSelector} from "react-redux";
 import React, { Component } from 'react';
@@ -30,6 +31,9 @@ function App(props) {
         </Route>
         <Route path="/checkout" exact>
           <CheckoutPage />
+        </Route>
+        <Route path="/order" exact>
+          <OrderConfirmPage />
         </Route>
         <Route
             exact

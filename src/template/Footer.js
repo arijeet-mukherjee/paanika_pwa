@@ -10,12 +10,6 @@ function Footer() {
             <span className={s.footerText}>SUPPORT</span>
           </a>
           <a href="!#" className="me-5">
-             <span className={s.footerText}>FASHION AWARDS</span>
-          </a>
-          <a href="!#" className="me-5">
-            <span className={s.footerText}>MEDIA FEATURES</span>
-          </a>
-          <a href="!#" className="me-5">
             <span className={s.footerText}>CONTACT US</span>
           </a>
           <a href="!#" className="me-5">

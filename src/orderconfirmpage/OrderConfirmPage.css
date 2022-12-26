@@ -1,0 +1,141 @@
+.ordercontainer{
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 15px;;
+  display: flex;
+  margin-top: 100px;
+  display: flex;
+  flex-flow: row wrap;
+  flex-direction: row;
+}
+@media (min-width: 1200px)
+{
+  .ordercontainer{
+    max-width: 1140px;
+  }
+  .d-flex-order{
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 950px) {
+  .d-flex-order{
+    flex-direction: column;
+  }
+  .ordercontainer{
+    margin-top: 70px;
+    flex-direction: column;
+  }
+}
+
+.d-flex-order{
+  display: flex;
+  background: #fff;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding: 25px;
+}
+
+.form-order{
+  flex: 4;
+  display: flex;
+  flex-flow: column wrap;
+}
+.Yorder{
+  flex: 2;
+}
+
+.title-order{
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0, #d578a1), color-stop(100, #dfabe2));
+  background: -moz-linear-gradient(top left, #d578a1 0%, #dfabe2 100%);
+  background: -ms-linear-gradient(top left, #d578a1 0%, #dfabe2 100%);
+  background: -o-linear-gradient(top left, #d578a1 0%, #dfabe2 100%);
+  background: linear-gradient(to bottom right, #d578a1 0%, #dfabe2 100%);
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius:5px 5px 0 0 ;
+  padding: 20px;
+  color: #f6f6f6;
+}
+.Yorder{
+  margin-top: 15px;
+  height: 600px;
+  padding: 20px;
+  border: 1px solid #dadada;
+}
+
+.Yorder>div{
+  padding: 15px 0; 
+}
+.label-order{
+  display: block;
+  margin: 15px;
+}
+.label-order>span{
+  float: left;
+  width: 25%;
+  margin-top: 12px;
+  padding-right: 10px;
+}
+.table-order{
+  display: block;
+  margin: 15px;
+}
+.order-select{
+  width: 72%;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+.order-input
+{
+  width: 70%;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  border: 1px solid #dadada;
+  color: #888;
+}
+.order-select{
+  width: 70%;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  border: 1px solid #dadada;
+  color: #888;
+}
+
+table{
+  margin: 0;
+  padding: 0;
+}
+th{
+  border-bottom: 1px solid #dadada;
+  padding: 10px 0;
+}
+tr>td:nth-child(1){
+  text-align: left;
+  color: #2d2d2a;
+}
+tr>td:nth-child(2){
+  text-align: right;
+  color: #bd0074;
+}
+td{
+  border-bottom: 1px solid #dadada;
+  padding: 25px 25px 25px 0;
+}
+
+.btn-order{
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 30px;
+  background: #dfabe2;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+}
