@@ -50,6 +50,7 @@ function OrderConfirmPage(props){
     }
 
     const apiCall = async () => {
+      fdata['delivery_street_aadress'] = fdata.billing_street_aadress;
       const config = {
         method: 'POST',
             url: "http://admin.paanika.com/api/client/order",
