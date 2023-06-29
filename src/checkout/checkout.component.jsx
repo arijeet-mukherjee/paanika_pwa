@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { Link } from "react-router-dom";
 
 import CheckoutItem from "../components/checkout-item/checkout-item.component";
 
@@ -41,14 +42,12 @@ const CheckoutPage = ({ cartItems, total }) => (
       <CheckoutItem key={cartItem.id} cartItem={cartItem} />
     ))}
     <TotalContainer>TOTAL: ₹{total}</TotalContainer>
+   <Link to='/order'>
    <HoverContainer>
-                <button className="btn btn-dark py-2 w-100" onClick = {
-                  () => {
-                    window.alert("Will be available soon!");
-                  }
-                }>Buy now</button>
+                <button className="btn btn-dark py-2 w-100">Buy now</button>
     </HoverContainer>
     {/* <StripeCheckoutButton price={total} /> */}
+    </Link>
   </CheckoutPageContainer>
 );
 

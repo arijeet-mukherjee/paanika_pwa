@@ -5,13 +5,16 @@ import Productcard from "../components/productcard/Productcard";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ScrollToTopOnMount from "../template/ScrollToTopOnMount";
-import Util from "../util/util";
+import Util, { initiatePayment } from "../util/util";
 import Spinner from "../util/spinner";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import s from './OrderConfirmPage.css'
+
+import { selectCartTotal } from "../redux/cart/cart.selectors";
 
 function OrderConfirmPage(props){
 
@@ -162,11 +165,11 @@ function OrderConfirmPage(props){
           </tr>
           <tr>
             <td>Product Name x 2(Qty)</td>
-            <td>$88.00</td>
+            <td>₹{props.total}</td>
           </tr>
           <tr>
             <td>Subtotal</td>
-            <td>$88.00</td>
+            <td>₹{props.total}</td>
           </tr>
           <tr>
             <td>Shipping</td>
@@ -187,11 +190,16 @@ function OrderConfirmPage(props){
           <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" width="50"/>
           </span>
         </div>
-        <button type="button" class="btn-order" onClick={() => apiCall()}>Place Order</button>
+        <button type="button" class="btn-order" onClick={() => initiatePayment()}>Place Order</button>
       </div>
     </div>
     </div>
         </>
     );
 }
-export default OrderConfirmPage;
+
+const mapStateToProps = createStructuredSelector({
+  total: selectCartTotal,
+});
+
+export default connect(mapStateToProps)(OrderConfirmPage);
