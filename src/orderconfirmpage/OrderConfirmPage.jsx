@@ -18,6 +18,8 @@ import { selectCartTotal } from "../redux/cart/cart.selectors";
 
 function OrderConfirmPage(props){
 
+  const [isLoading, setLoading] = useState(false)
+
   const [fdata, setFdata] = useState({
     billing_first_name: '',
     billing_last_name: '',
@@ -78,6 +80,12 @@ function OrderConfirmPage(props){
     
     }
 
+    const loadHandler = () => {
+      if(fdata.billing_state !== '' && fdata.billing_street_aadress !== '' && fdata.billing_city !== '' && fdata.billing_country !== '' && fdata.billing_first_name !== '' && fdata.billing_phone !== '' && fdata.billing_postcode !== '') {
+        setLoading(true)
+      }
+    }
+
     const getAllCountries= async () => {
       await Util.apiCall('GET', Util.baseUrl ,`country?limit=1000&getStates=1`, Util.header)
       .then((dt)=>{
@@ -96,7 +104,15 @@ function OrderConfirmPage(props){
 
     return (
         <>
-        <div class="ordercontainer">
+        <div style={{ "display": `${isLoading ? '' : 'none'}` }}>
+          <Spinner />
+          <div>
+            <span>
+              Please complete your transaction...
+            </span>
+          </div>
+        </div>
+        <div class="ordercontainer" style={{ "display": `${!isLoading ? '' : 'none'}` }}>
           <div class="title-order">
               <h2>Complete My Order</h2>
           </div>
@@ -159,7 +175,7 @@ function OrderConfirmPage(props){
                 <input class="order-input" type="email" name="billing_email"/> 
         </label>
 
-              <input TYPE="submit" value="Checkout" class="btn-order" />
+              <input TYPE="submit" value="Checkout" class="btn-order" onClick={loadHandler}/>
               
       </form>
       <div class="Yorder">
@@ -186,14 +202,6 @@ function OrderConfirmPage(props){
         <p>
             Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
         </p>
-        <div>
-          <input type="radio" name="dbt" value="cd"/> Cash on Delivery
-        </div>
-        <div>
-          <input type="radio" name="dbt" value="cd" /> Paypal <span>
-          <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" width="50"/>
-          </span>
-        </div>
              
       </div>
     </div>
