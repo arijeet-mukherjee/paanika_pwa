@@ -10,6 +10,8 @@ import SignInAndSignUpPage from "./signinsignup/sign-in-and-sign-up.component";
 import { useSelector} from "react-redux";
 import React, { Component } from 'react';
 import Refund from "./refund/Refund";
+import PaymentStatus from "./orderconfirmpage/paymentStatus";
+
 
 
 function App(props) {
@@ -48,6 +50,9 @@ function App(props) {
           />
           <Route path="/toc">
             <Refund />
+          </Route>
+          <Route path="/paymentstatus">
+            <PaymentStatus />
           </Route>
       </Switch>
     </Template>
