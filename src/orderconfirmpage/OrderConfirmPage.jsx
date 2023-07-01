@@ -20,6 +20,8 @@ function OrderConfirmPage(props){
 
   const [isLoading, setLoading] = useState(false);
   const [responseData, setResponseData] = useState(null);
+  const [intervalId, setIntervalId] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   const [fdata, setFdata] = useState({
     billing_first_name: '',
@@ -82,20 +84,26 @@ function OrderConfirmPage(props){
     }
 
     const getPaymentConfirmation = async () => {
-      try {
-        const response = await axios.get('http://localhost:4000/payment/getPaymentConfirmation');
+      if (responseData === null) {
+        console.log("121212121");
+        try {
+          const response = await axios.get('http://localhost:4000/payment/getPaymentConfirmation');
 
-        // Check if the response is empty
-        if (response.data !== null && Object.keys(response.data).length > 0) {
-          setResponseData(response.data);
-          console.log("payment data : ", response.data);
-        } else {
-          // If the response is empty, recursively call the fetchData function
-          getPaymentConfirmation();
+          // Check if the response is empty
+          if (response.data !== null && Object.keys(response.data).length > 0) {
+            setResponseData(response.data);
+            setIsFetching(false);
+            console.log("payment data : ", response.data);
+          } else {
+            // If the response is empty, recursively call the getPaymentConfirmation function
+            setTimeout(() => {
+              getPaymentConfirmation();
+            }, 15000);
+          }
+        } catch (error) {
+          console.error(error);
+          // Handle the error here
         }
-      } catch (error) {
-        console.error(error);
-        // Handle the error here
       }
     }
 
@@ -103,8 +111,14 @@ function OrderConfirmPage(props){
       if(fdata.billing_state !== '' && fdata.billing_street_aadress !== '' && fdata.billing_city !== '' && fdata.billing_country !== '' && fdata.billing_first_name !== '' && fdata.billing_phone !== '' && fdata.billing_postcode !== '') {
         setLoading(true);
         setTimeout(() => {
-          setInterval(getPaymentConfirmation , 15000);
-        }, 5000);
+         if(!isFetching) {
+           setIsFetching(true);
+          //  const intervalId2 = setInterval(getPaymentConfirmation , 15000);
+          //  console.log(intervalId2, "From loadHandler");
+          //  setIntervalId(intervalId2);
+           getPaymentConfirmation();
+         }
+        }, 7000);
       }
     }
 
@@ -123,6 +137,7 @@ function OrderConfirmPage(props){
     useEffect(()=>{
       getAllCountries();
     }, []);
+
 
     return (
         <>
