@@ -12,12 +12,17 @@ import React, { useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import s from './OrderConfirmPage.css'
+import s from './OrderConfirmPage.css';
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 
 import { selectCartTotal } from "../redux/cart/cart.selectors";
+import PaymentStatus from "./paymentStatus";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 function OrderConfirmPage(props){
 
+  const history = useHistory()
   const [isLoading, setLoading] = useState(false);
   const [responseData, setResponseData] = useState(null);
   const [intervalId, setIntervalId] = useState(null);
@@ -94,11 +99,12 @@ function OrderConfirmPage(props){
             setResponseData(response.data);
             setIsFetching(false);
             console.log("payment data : ", response.data);
+            history.push({pathname: 'paymentstatus',  state : response})
           } else {
             // If the response is empty, recursively call the getPaymentConfirmation function
             setTimeout(() => {
               getPaymentConfirmation();
-            }, 15000);
+            }, 7000);
           }
         } catch (error) {
           console.error(error);
