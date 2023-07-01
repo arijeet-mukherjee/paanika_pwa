@@ -104,13 +104,13 @@ function OrderConfirmPage(props){
 
     return (
         <>
-        <div style={{ "display": `${isLoading ? '' : 'none'}` }}>
+        <div class="ordercontainer" style={{ "display": `${isLoading ? '' : 'none'}`, "position": "relative"}}>
           <Spinner />
-          <div>
-            <span>
-              Please complete your transaction...
+          <div style={{"position" : "relative"}}>
+            <span style={{"fontSize" : "16px", "overflow" :"hidden"}}>
+              <b>Awaiting Payment Confirmation,<br/> Don't refresh the page... </b>
             </span>
-          </div>
+          </div><br /><br />
         </div>
         <div class="ordercontainer" style={{ "display": `${!isLoading ? '' : 'none'}` }}>
           <div class="title-order">
