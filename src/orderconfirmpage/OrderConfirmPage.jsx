@@ -18,7 +18,8 @@ import { selectCartTotal } from "../redux/cart/cart.selectors";
 
 function OrderConfirmPage(props){
 
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(false);
+  const [responseData, setResponseData] = useState(null);
 
   const [fdata, setFdata] = useState({
     billing_first_name: '',
@@ -80,9 +81,30 @@ function OrderConfirmPage(props){
     
     }
 
+    const getPaymentConfirmation = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/payment/getPaymentConfirmation');
+
+        // Check if the response is empty
+        if (response.data !== null && Object.keys(response.data).length > 0) {
+          setResponseData(response.data);
+          console.log("payment data : ", response.data);
+        } else {
+          // If the response is empty, recursively call the fetchData function
+          getPaymentConfirmation();
+        }
+      } catch (error) {
+        console.error(error);
+        // Handle the error here
+      }
+    }
+
     const loadHandler = () => {
       if(fdata.billing_state !== '' && fdata.billing_street_aadress !== '' && fdata.billing_city !== '' && fdata.billing_country !== '' && fdata.billing_first_name !== '' && fdata.billing_phone !== '' && fdata.billing_postcode !== '') {
-        setLoading(true)
+        setLoading(true);
+        setTimeout(() => {
+          setInterval(getPaymentConfirmation , 15000);
+        }, 5000);
       }
     }
 
