@@ -101,14 +101,19 @@ function OrderConfirmPage(props){
               <h2>Complete My Order</h2>
           </div>
         <div class="d-flex-order">
-        <form action="" method="" class="form-order">
+            <form action="http://127.0.0.1:4000/payment/ccavRequestHandler" method="POST" target="_blank" class="form-order">
+              <input name="merchant_id" id="merchant_id" value="2531097" style={{"display" : "none"}}/>
+              <input type="text" name="order_id" value="21234124" style={{ "display": "none" }}/>
+              <input type="text" name="currency" value="INR" style={{ "display": "none" }} />
+              <input type="text" name="amount" value={`${props.total}`+".00"} style={{ "display": "none" }} />
+              <input type="text" name="redirect_url"
+                value="http://localhost:4000/payment/ccavResponseHandler" style={{ "display": "none" }}/>
+              <input type="text" name="cancel_url"
+                value="http://localhost:4000/payment/ccavResponseHandler" style={{ "display": "none" }} />
+              <input type="text" name="language" id="language" value="EN" style={{ "display": "none" }} />
             <label class="label-order">
-              <span class="fname">First Name <span class="required">*</span></span>
-              <input type="text" name="fname" class="order-input" onChange={e => handleStateChange("billing_first_name", e.target.value)}/>
-            </label>
-            <label class="label-order">
-              <span class="lname">Last Name <span class="required">*</span></span>
-              <input type="text" name="lname" class="order-input" onChange={e => handleStateChange("billing_last_name", e.target.value)}/>
+              <span class="fname">Name <span class="required">*</span></span>
+                <input type="text" name="billing_name" class="order-input" onChange={e => handleStateChange("billing_first_name", e.target.value)}/>
             </label>
             <label class="label-order">
               <span>Country <span class="required">*</span></span>
@@ -122,8 +127,8 @@ function OrderConfirmPage(props){
               </select>
             </label>
             <label class="label-order">
-                <span>State / County <span class="required">*</span></span>
-                <select class="order-select" required onChange={e => handleStateChange('billing_state', Number(e.target.value))} value={fdata.billing_state}>
+                <span>State<span class="required">*</span></span>
+                <select name="billing_state" class="order-select" required onChange={e => handleStateChange('billing_state', Number(e.target.value))} value={fdata.billing_state}>
                   <option value="select">Select your state...</option>
                   {/* <input type="text" class="order-input" name="billing_state" onChange={e => handleStateChange(e.target.name, e.target.value)}/>  */}
                   {
@@ -135,28 +140,27 @@ function OrderConfirmPage(props){
             </label>    
         <label class="label-order">
           <span>Street Address <span class="required">*</span></span>
-          <input type="text" class="order-input" name="houseadd" placeholder="House number and street name" required onChange={e => handleStateChange("billing_street_aadress", e.target.value)}/>
-        </label>
-        <label class="label-order">
-          <span>&nbsp;</span>
-          <input type="text" class="order-input" name="apartment" placeholder="Apartment, suite, unit etc. (optional)"/>
+                <input type="text" class="order-input" name="billing_address" placeholder="House number and street name" required onChange={e => handleStateChange("billing_street_aadress", e.target.value)}/>
         </label>
         <label class="label-order">
           <span>Town / City <span class="required">*</span></span>
-          <input type="text" class="order-input"  name="billing_city" onChange={e => handleStateChange(e.target.name, e.target.value)}/> 
+                <input type="text" class="order-input" name="billing_city" onChange={e => handleStateChange(e.target.name, e.target.value)}/> 
         </label>
         <label class="label-order">
           <span>Postcode / ZIP <span class="required">*</span></span>
-          <input type="text" class="order-input" name="city" onChange={e => handleStateChange("billing_postcode", e.target.value)}/> 
+                <input type="text" class="order-input" name="billing_zip" onChange={e => handleStateChange("billing_postcode", e.target.value)}/> 
         </label>
         <label class="label-order">
           <span>Phone <span class="required">*</span></span>
-          <input type="tel" class="order-input" name="city" onChange={e => handleStateChange("billing_phone",  Number(e.target.value))}/> 
+                <input type="tel" class="order-input" name="billing_tel" onChange={e => handleStateChange("billing_phone",  Number(e.target.value))}/> 
         </label>
         <label class="label-order">
           <span>Email Address <span class="required">*</span></span>
-          <input class="order-input" type="email" name="city"/> 
+                <input class="order-input" type="email" name="billing_email"/> 
         </label>
+
+              <input TYPE="submit" value="Checkout" class="btn-order" />
+              
       </form>
       <div class="Yorder">
         <table class="table-order">
@@ -190,7 +194,7 @@ function OrderConfirmPage(props){
           <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" width="50"/>
           </span>
         </div>
-        <button type="button" class="btn-order" onClick={() => initiatePayment()}>Place Order</button>
+             
       </div>
     </div>
     </div>
