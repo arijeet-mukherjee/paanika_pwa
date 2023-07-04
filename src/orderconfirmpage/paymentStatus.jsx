@@ -21,11 +21,12 @@ function PaymentStatus(props) {
           <tbody>
             {
             Object.entries(data).map((v,i) => {
-                return <tr>
+                console.log(v)
+                if(v[1] !== '' && v[1] !== 'null') {return <tr>
                   <td>
                     {v}
                   </td>
-                </tr>
+                </tr>}
               })
             }
           </tbody>
