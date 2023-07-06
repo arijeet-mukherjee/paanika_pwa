@@ -76,7 +76,7 @@ function Header(props) {
                 </li>
                 <li className="nav-item dropdown">
                   <a
-                    href="!#"
+                    href="#"
                     className="nav-link"
                     data-toggle="dropdown"
                     id="userDropdown"
@@ -125,7 +125,7 @@ function Header(props) {
                 </li>
                 <li className="nav-item">
                   <a
-                    href="!#"
+                    href="#"
                     className="nav-link"
                     role="button"
                     aria-expanded="false"

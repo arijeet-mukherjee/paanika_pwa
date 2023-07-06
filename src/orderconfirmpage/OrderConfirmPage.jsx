@@ -90,9 +90,8 @@ function OrderConfirmPage(props){
 
     const getPaymentConfirmation = async () => {
       if (responseData === null) {
-        console.log("121212121");
         try {
-          const response = await axios.get('http://localhost:4000/payment/getPaymentConfirmation');
+          const response = await axios.get('http://payment.paanika.com:4000/payment/getPaymentConfirmation');
 
           // Check if the response is empty
           if (response.data !== null && Object.keys(response.data).length > 0) {
@@ -160,15 +159,15 @@ function OrderConfirmPage(props){
               <h2>Complete My Order</h2>
           </div>
         <div class="d-flex-order">
-            <form action="http://127.0.0.1:4000/payment/ccavRequestHandler" method="POST" target="_blank" class="form-order">
+            <form action="http://payment.paanika.com:4000/payment/ccavRequestHandler" method="POST" target="_blank" class="form-order">
               <input name="merchant_id" id="merchant_id" value="2531097" style={{"display" : "none"}}/>
               <input type="text" name="order_id" value="21234124" style={{ "display": "none" }}/>
               <input type="text" name="currency" value="INR" style={{ "display": "none" }} />
               <input type="text" name="amount" value={`${props.total}`+".00"} style={{ "display": "none" }} />
               <input type="text" name="redirect_url"
-                value="http://localhost:4000/payment/ccavResponseHandler" style={{ "display": "none" }}/>
+                value="http://payment.paanika.com:4000/payment/ccavResponseHandler" style={{ "display": "none" }}/>
               <input type="text" name="cancel_url"
-                value="http://localhost:4000/payment/ccavResponseHandler" style={{ "display": "none" }} />
+                value="http://payment.paanika.com:4000/payment/ccavResponseHandler" style={{ "display": "none" }} />
               <input type="text" name="language" id="language" value="EN" style={{ "display": "none" }} />
             <label class="label-order">
               <span class="fname">Name <span class="required">*</span></span>

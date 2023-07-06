@@ -67,8 +67,6 @@ const util ={
     },
 }
 
-//https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction  http://localhost:3000/#/
-
 
 function getAlgorithm(keyBase64) {
     var key = Buffer.from(keyBase64, 'base64');
