@@ -42,12 +42,16 @@ const CheckoutPage = ({ cartItems, total }) => (
       <CheckoutItem key={cartItem.id} cartItem={cartItem} />
     ))}
     <TotalContainer>TOTAL: ₹{total}</TotalContainer>
-   <Link to='/order'>
+   {cartItems.length === 0 ? (
+    <HoverContainer>
+    <button className="btn btn-dark py-2 w-100" disabled={true}>Please Add Items To Continue</button>
+</HoverContainer>
+   ) :(<Link to='/order'>
    <HoverContainer>
                 <button className="btn btn-dark py-2 w-100">Buy now</button>
     </HoverContainer>
     {/* <StripeCheckoutButton price={total} /> */}
-    </Link>
+    </Link>)}
   </CheckoutPageContainer>
 );
 
