@@ -15,7 +15,8 @@ import { createStructuredSelector } from "reselect";
 import s from "./OrderConfirmPage.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-import { selectCartTotal } from "../redux/cart/cart.selectors";
+import { selectCartItems, selectCartTotal } from "../redux/cart/cart.selectors";
+import { selectCurrentUser } from "../redux/user/user.selectors";
 import PaymentStatus from "./paymentStatus";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import util from "../util/util";
@@ -60,7 +61,25 @@ function OrderConfirmPage(props) {
 
 	function handleStateChange(fieldName, fieldValue) {
 		setFdata({ ...fdata, [fieldName]: fieldValue });
-		console.log(fdata);
+	}
+
+	const [cartObject, setCartObject] = useState({});
+	let navigate = useHistory();
+	const routeChange = (path) => {
+		navigate.push(path);
+	};
+
+	function buildCartObject() {
+		const cartObject = {};
+		props.cartItems &&
+			props.cartItems.map((item) => {
+				cartObject[item.product_id] = item.quantity;
+			});
+
+		setCartObject({
+			token: props.user && props.user.token,
+			cartObject: cartObject,
+		});
 	}
 
 	const apiCall = async () => {
@@ -78,25 +97,21 @@ function OrderConfirmPage(props) {
 
 		const result = await axios(config)
 			.then((response) => response.data)
-			.then((data) => {
-				console.log(data);
-			})
-			.catch((e) => console.log(e));
+			.then((data) => {})
+			.catch((e) => console.log("result", e));
 	};
 
 	const getPaymentConfirmation = async () => {
 		if (responseData === null) {
-			console.log("121212121");
 			try {
 				const response = await axios.get(
-					"http://localhost:4000/payment/getPaymentConfirmation"
+					"http://payment.paanika.com:4000/payment/getPaymentConfirmation"
 				);
 
 				// Check if the response is empty
 				if (response.data !== null && Object.keys(response.data).length > 0) {
 					setResponseData(response.data);
 					setIsFetching(false);
-					console.log("payment data : ", response.data);
 					history.push({ pathname: "paymentstatus", state: response });
 				} else {
 					// If the response is empty, recursively call the getPaymentConfirmation function
@@ -112,6 +127,9 @@ function OrderConfirmPage(props) {
 	};
 
 	const loadHandler = () => {
+		if (!cartObject.token) {
+			routeChange("/signin");
+		}
 		if (
 			fdata.billing_state !== "" &&
 			fdata.billing_street_aadress !== "" &&
@@ -125,9 +143,6 @@ function OrderConfirmPage(props) {
 			setTimeout(() => {
 				if (!isFetching) {
 					setIsFetching(true);
-					//  const intervalId2 = setInterval(getPaymentConfirmation , 15000);
-					//  console.log(intervalId2, "From loadHandler");
-					//  setIntervalId(intervalId2);
 					getPaymentConfirmation();
 				}
 			}, 7000);
@@ -142,12 +157,10 @@ function OrderConfirmPage(props) {
 			Util.header
 		)
 			.then((dt) => {
-				console.log(dt, "sucess wala");
 				setCountry(dt.data);
 			})
 			.catch((e) => {
-				console.log("this error");
-				console.log(e);
+				console.log("getAllCountries error", e);
 			});
 	};
 
@@ -161,6 +174,7 @@ function OrderConfirmPage(props) {
 	useEffect(() => {
 		getAllCountries();
 		generateRandomOrderId();
+		buildCartObject();
 	}, []);
 
 	return (
@@ -190,7 +204,7 @@ function OrderConfirmPage(props) {
 				</div>
 				<div class="d-flex-order">
 					<form
-						action="http://127.0.0.1:4000/payment/ccavRequestHandler"
+						action="http://payment.paanika.com:4000/payment/ccavRequestHandler"
 						method="POST"
 						target="_blank"
 						class="form-order"
@@ -227,14 +241,20 @@ function OrderConfirmPage(props) {
 						/>
 						<input
 							type="text"
+							name="cartObject"
+							value={JSON.stringify(cartObject)}
+							style={{ display: "none" }}
+						/>
+						<input
+							type="text"
 							name="redirect_url"
-							value="http://localhost:4000/payment/ccavResponseHandler"
+							value="http://payment.paanika.com:4000/payment/ccavResponseHandler"
 							style={{ display: "none" }}
 						/>
 						<input
 							type="text"
 							name="cancel_url"
-							value="http://localhost:4000/payment/ccavResponseHandler"
+							value="http://payment.paanika.com:4000/payment/ccavResponseHandler"
 							style={{ display: "none" }}
 						/>
 						<input
@@ -376,7 +396,9 @@ function OrderConfirmPage(props) {
 								<th colspan="2">Your order</th>
 							</tr>
 							<tr>
-								<td>Product Name x 2(Qty)</td>
+								<td>
+									Total Products: {props.cartItems && props.cartItems.length}
+								</td>
 								<td>₹{props.total}</td>
 							</tr>
 							<tr>
@@ -407,6 +429,8 @@ function OrderConfirmPage(props) {
 
 const mapStateToProps = createStructuredSelector({
 	total: selectCartTotal,
+	cartItems: selectCartItems,
+	user: selectCurrentUser,
 });
 
 export default connect(mapStateToProps)(OrderConfirmPage);

@@ -34,9 +34,16 @@ function App(props) {
         <Route path="/checkout" exact>
           <CheckoutPage />
         </Route>
-        <Route path="/order" exact>
-          <OrderConfirmPage />
-        </Route>
+        <Route path="/order" 
+        exact
+        render={() =>
+          state.cart.cartItems.length === 0 ? (
+            <Redirect to="/" />
+          ) : (
+            <OrderConfirmPage />
+          )
+        }
+        />
         <Route
             exact
             path="/signin"
