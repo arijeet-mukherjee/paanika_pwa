@@ -1,0 +1,9 @@
+.order__outerbox {
+	padding: 16px;
+	box-sizing: border-box;
+	background: #fff;
+	border: 1px solid #000000;
+	border-radius: 8px;
+	width: auto;
+	height: auto;
+}

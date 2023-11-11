@@ -111,6 +111,7 @@ function OrderConfirmPage(props) {
 				// Check if the response is empty
 				if (response.data !== null && Object.keys(response.data).length > 0) {
 					setResponseData(response.data);
+					console.log(response.data);
 					setIsFetching(false);
 					history.push({ pathname: "paymentstatus", state: response });
 				} else {

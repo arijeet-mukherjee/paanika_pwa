@@ -1,0 +1,51 @@
+.section__Jobs-container {
+	margin-top: 50px;
+	max-width: 700px;
+	position: relative;
+}
+
+.section__Jobs-container span {
+	border-left: 4px solid#9E0449;
+	font-size: 14px;
+	z-index: 10;
+	position: absolute;
+	top: 0;
+	left: 15px;
+	display: inline-block;
+	width: 2px;
+	height: 82px;
+	transition: transform 0.5s;
+}
+
+.section__Jobs-container span.index1-chosen {
+	transform: translateY(2px);
+}
+.section__Jobs-container span.index2-chosen {
+	transform: translateY(52px);
+}
+.section__Jobs-container span.index3-chosen {
+	transform: translateY(104px);
+}
+
+.section__Jobs-styledTabList {
+	max-width: 130px;
+}
+
+.section__Jobs-styledTabList {
+	padding: 0;
+}
+.outerbox {
+	margin-top: 110px;
+	margin-left: 32px;
+	margin-right: 32px;
+	margin-bottom: 32px;
+	padding: 8px;
+	display: flex;
+	flex-direction: column;
+	padding: 32px;
+	position: relative;
+	box-sizing: border-box;
+	background: #fff;
+	border: 1px solid #000000;
+	border-radius: 8px;
+}
