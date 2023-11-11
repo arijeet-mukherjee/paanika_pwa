@@ -1,0 +1,24 @@
+.outerbox {
+	margin: 0 !important;
+	padding: 8px;
+	display: flex;
+	flex-direction: column;
+	padding: 32px;
+	position: relative;
+	box-sizing: border-box;
+	background: #fff;
+	border: 1px solid #000000;
+	border-radius: 8px;
+}
+
+.node {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.node > label {
+	color: black;
+	font-style: normal;
+	font-size: 17px;
+}
