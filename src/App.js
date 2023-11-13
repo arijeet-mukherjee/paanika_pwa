@@ -64,7 +64,9 @@ function App(props) {
 				<Route
 					exact
 					path="/profile"
-					render={() => (state.user.currentUser ? <Profile /> : <Profile />)}
+					render={() =>
+						state.user.currentUser ? <Profile /> : <SignInAndSignUpPage />
+					}
 				/>
 			</Switch>
 		</Template>

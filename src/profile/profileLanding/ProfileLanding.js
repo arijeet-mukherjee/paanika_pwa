@@ -1,28 +1,35 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import "./landing.css";
 import { useSelector } from "react-redux";
-import {readFirebaseDatabase, initializeFirebase} from "../../util/util";
 
 function ProfileLanding(props) {
 	const state = useSelector((state) => state);
-	useEffect(()=>{
-		initializeFirebase();
-		readFirebaseDatabase();
-	},[]);
 	return (
 		<div className="outerbox">
 			<div className="details">
 				<div className="node">
 					<label>Mobile Number</label>
-					<p>{state.user && state.user.currentUser ? state.user.currentUser.mobile : "XXXXX XXXXX"}</p>
+					<p>
+						{state.user && state.user.currentUser
+							? state.user.currentUser.mobile
+							: "XXXXX XXXXX"}
+					</p>
 				</div>
 				<div className="node">
 					<label>Full Name</label>
-					<p>{state.user && state.user.currentUser ? state.user.currentUser.fullname : "Test Developer" }</p>
+					<p>
+						{state.user && state.user.currentUser
+							? state.user.currentUser.fullname
+							: "Test Developer"}
+					</p>
 				</div>
 				<div className="node">
 					<label>Email Id</label>
-					<p>{state.user && state.user.currentUser ? state.user.currentUser.email : "test@email.com"}</p>
+					<p>
+						{state.user && state.user.currentUser
+							? state.user.currentUser.email
+							: "test@email.com"}
+					</p>
 				</div>
 				<div className="node">
 					<label>Date of birth</label>
