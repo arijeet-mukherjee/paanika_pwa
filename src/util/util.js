@@ -1,4 +1,7 @@
 import axios from "axios";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 var crypto = require("crypto");
 
 const characters =
@@ -176,6 +179,49 @@ export const initiatePayment = function(amount = 0, orderId) {
 				reject(error);
 			});
 	});
+};
+
+export const initializeFirebase = function(){
+	// TODO: Add SDKs for Firebase products that you want to use
+	// https://firebase.google.com/docs/web/setup#available-libraries
+
+	// Your web app's Firebase configuration
+	// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+	const firebaseConfig = {
+		apiKey: "AIzaSyDjXORsevzHU62WZs-ZJ64ErolRv_EYQCs",
+		authDomain: "paanika.firebaseapp.com",
+		projectId: "paanika",
+		storageBucket: "paanika.appspot.com",
+		messagingSenderId: "409235311412",
+		appId: "1:409235311412:web:98b1b9dc696d6f9b2b3361",
+		measurementId: "G-7H99DJH2MY"
+	};
+
+	// Initialize Firebase
+	const app = initializeApp(firebaseConfig);
+	const analytics = getAnalytics(app);
+	return app;
+};
+
+export const getOrderStatus = (order_no) => {
+
+	return new Promise( async (resolve, reject) => {
+		try {
+			const response = await axios.get(
+				`http://payment.paanika.com:4000/payment/getOrderStatus?order_no=${order_no.toString()}`
+			);
+
+			// Check if the response is empty
+			if (response.data !== null && Object.keys(response.data).length > 0) {
+					resolve(response.data)
+			}
+		} catch (error) {
+			console.error(error);
+			reject(error);
+			// Handle the error here
+		}
+	});
+	
 };
 
 export default util;

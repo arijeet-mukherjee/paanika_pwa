@@ -5,8 +5,10 @@ import { Container, Row, Col } from "reactstrap";
 import "./Profile.css";
 import VTlist from "./VTlist";
 import VTcontent from "./VTcontent";
+import { useSelector } from "react-redux";
 
 function Profile(props) {
+	const state = useSelector((state) => state);
 	const [activeTabId, setActiveTabId] = useState(0);
 	const tabsDetails = {
 		tabs: [
@@ -25,7 +27,7 @@ function Profile(props) {
 			{
 				expData: {
 					tab: "Account Overview",
-					position: "Arijeet Mukherjee",
+					position: (state.user && state.user.currentUser ? state.user.currentUser.fullname.toUpperCase() : "Test Developer".toUpperCase()),
 					period: "Profile Details",
 					id: "profile",
 					details: [

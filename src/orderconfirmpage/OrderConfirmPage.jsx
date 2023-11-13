@@ -14,12 +14,13 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import s from "./OrderConfirmPage.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-
+import { getDatabase, ref, push, set } from "firebase/database";
 import { selectCartItems, selectCartTotal } from "../redux/cart/cart.selectors";
 import { selectCurrentUser } from "../redux/user/user.selectors";
 import PaymentStatus from "./paymentStatus";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
-import util from "../util/util";
+import util, { getOrderStatus, initializeFirebase } from "../util/util";
+import { useSelector } from "react-redux";
 
 function OrderConfirmPage(props) {
 	const history = useHistory();
@@ -27,34 +28,35 @@ function OrderConfirmPage(props) {
 	const [responseData, setResponseData] = useState(null);
 	const [intervalId, setIntervalId] = useState(null);
 	const [isFetching, setIsFetching] = useState(false);
+	const state = useSelector((state) => state);
 
 	const [fdata, setFdata] = useState({
-		billing_first_name: "",
-		billing_last_name: "",
-		billing_street_aadress: "",
-		billing_city: "",
-		billing_postcode: "",
+		billing_first_name: "N/A",
+		billing_last_name: "N/A",
+		billing_street_aadress: "N/A",
+		billing_city: "N/A",
+		billing_postcode: "N/A",
 		billing_country: null,
-		billing_state: "",
-		billing_phone: "",
-		delivery_first_name: "",
-		delivery_last_name: "",
-		delivery_street_aadress: "",
-		delivery_city: "",
-		delivery_postcode: "",
-		delivery_country: "",
-		delivery_state: "",
-		delivery_phone: "",
-		currency_id: "",
-		language_id: "",
-		session_id: "",
-		payment_method: "",
-		latlong: "",
-		payment_id: "",
-		cc_cvc: "",
-		cc_expiry_month: "",
-		cc_expiry_year: "",
-		cc_number: "",
+		billing_state: "N/A",
+		billing_phone: "N/A",
+		delivery_first_name: "N/A",
+		delivery_last_name: "N/A",
+		delivery_street_aadress: "N/A",
+		delivery_city: "N/A",
+		delivery_postcode: "N/A",
+		delivery_country: "N/A",
+		delivery_state: "N/A",
+		delivery_phone: "N/A",
+		currency_id: 1,
+		language_id: "N/A",
+		session_id: "N/A",
+		payment_method: "cod",
+		latlong: "N/A",
+		payment_id: 4,
+		cc_cvc: 123,
+		cc_expiry_month: 0,
+		cc_expiry_year: 2040,
+		cc_number: 123,
 	});
 
 	const [country, setCountry] = useState([]);
@@ -82,23 +84,47 @@ function OrderConfirmPage(props) {
 		});
 	}
 
-	const apiCall = async () => {
-		fdata["delivery_street_aadress"] = fdata.billing_street_aadress;
-		const config = {
-			method: "POST",
-			url: "http://admin.paanika.com/api/client/order",
-			headers: {
-				clientsecret: "sk_1234",
-				clientid: "1234",
-				"Access-Control-Allow-Origin": "*",
-			},
-			data: fdata ? fdata : "",
-		};
+	function setToFirebase(bankAndDatabaseOrderIdmap) {
 
-		const result = await axios(config)
-			.then((response) => response.data)
-			.then((data) => {})
-			.catch((e) => console.log("result", e));
+		const db = getDatabase();
+		push(ref(db), bankAndDatabaseOrderIdmap);
+	}
+
+	const placeOrder = async () => {
+		return new Promise(async (resolve, reject)=>{
+
+			fdata["delivery_street_aadress"] = fdata.billing_street_aadress;
+			fdata["billing_phone"] = fdata.billing_phone.toString();
+			fdata["delivery_phone"] = fdata.delivery_phone.toString();
+			fdata["delivery_country"] = fdata.billing_country;
+			fdata["delivery_state"] = fdata.billing_state;
+			let config = {
+				method: "POST",
+				url: "http://admin.paanika.com/api/client/order",
+				headers: {
+					clientsecret: "sk_1234",
+					clientid: "1234",
+					"Access-Control-Allow-Origin": "*",
+					"Authorization": state.user &&
+						state.user.currentUser &&
+						state.user.currentUser.token &&
+						`Bearer ${state.user.currentUser.token}`
+				},
+				data: fdata ? fdata : "",
+			};
+
+			await axios(config)
+				.then((response) => response.data)
+				.then((data) => {
+					console.log(data, "Order placed");
+					resolve(data);
+
+				})
+				.catch((e) => {
+					console.log("result", e)
+					reject(e);
+				});
+		});
 	};
 
 	const getPaymentConfirmation = async () => {
@@ -113,7 +139,29 @@ function OrderConfirmPage(props) {
 					setResponseData(response.data);
 					console.log(response.data);
 					setIsFetching(false);
-					history.push({ pathname: "paymentstatus", state: response });
+					if(response.data && response.data.success){
+						placeOrder().then((data) => {
+							const orderId = (data && data.data && data.data.order_id) || '';
+							if(orderId === '') {
+								response.data.success = false;
+							}
+							else {
+							const savePaymentDataToFirebase = {
+								payment : {}
+							};	
+							savePaymentDataToFirebase.payment[orderId] = {...response.data};
+							const bankAndDatabaseOrderIdmap = {
+							};
+							bankAndDatabaseOrderIdmap[orderId]  = randomOrder;
+							setToFirebase(bankAndDatabaseOrderIdmap);
+							setToFirebase(savePaymentDataToFirebase);
+							history.push({ pathname: "paymentstatus", state: response });
+						}
+						}).catch((e)=>{
+							response.data.success = false;
+							history.push({ pathname: "paymentstatus", state: response });
+						});
+					}
 				} else {
 					// If the response is empty, recursively call the getPaymentConfirmation function
 					setTimeout(() => {
@@ -126,6 +174,8 @@ function OrderConfirmPage(props) {
 			}
 		}
 	};
+
+	
 
 	const loadHandler = () => {
 		if (!cartObject.token) {
@@ -159,6 +209,7 @@ function OrderConfirmPage(props) {
 		)
 			.then((dt) => {
 				setCountry(dt.data);
+				console.log(dt.data, "countries")
 			})
 			.catch((e) => {
 				console.log("getAllCountries error", e);
@@ -176,6 +227,7 @@ function OrderConfirmPage(props) {
 		getAllCountries();
 		generateRandomOrderId();
 		buildCartObject();
+		initializeFirebase();
 	}, []);
 
 	return (

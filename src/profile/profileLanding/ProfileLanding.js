@@ -9,15 +9,15 @@ function ProfileLanding(props) {
 			<div className="details">
 				<div className="node">
 					<label>Mobile Number</label>
-					<p>XXXXX XXXXX</p>
+					<p>{state.user && state.user.currentUser ? state.user.currentUser.mobile : "XXXXX XXXXX"}</p>
 				</div>
 				<div className="node">
 					<label>Full Name</label>
-					<p>Test Developer</p>
+					<p>{state.user && state.user.currentUser ? state.user.currentUser.fullname : "Test Developer" }</p>
 				</div>
 				<div className="node">
 					<label>Email Id</label>
-					<p>test@email.com</p>
+					<p>{state.user && state.user.currentUser ? state.user.currentUser.email : "test@email.com"}</p>
 				</div>
 				<div className="node">
 					<label>Date of birth</label>
