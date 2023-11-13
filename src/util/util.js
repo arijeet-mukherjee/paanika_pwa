@@ -182,7 +182,7 @@ export const initiatePayment = function(amount = 0, orderId) {
 	});
 };
 
-export const initializeFirebase = function(){
+export const initializeFirebase = function() {
 	// TODO: Add SDKs for Firebase products that you want to use
 	// https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -195,7 +195,7 @@ export const initializeFirebase = function(){
 		storageBucket: "paanika.appspot.com",
 		messagingSenderId: "409235311412",
 		appId: "1:409235311412:web:98b1b9dc696d6f9b2b3361",
-		measurementId: "G-7H99DJH2MY"
+		measurementId: "G-7H99DJH2MY",
 	};
 
 	// Initialize Firebase
@@ -205,8 +205,7 @@ export const initializeFirebase = function(){
 };
 
 export const getOrderStatus = (order_no) => {
-
-	return new Promise( async (resolve, reject) => {
+	return new Promise(async (resolve, reject) => {
 		try {
 			const response = await axios.get(
 				`http://payment.paanika.com:4000/payment/getOrderStatus?order_no=${order_no.toString()}`
@@ -214,7 +213,7 @@ export const getOrderStatus = (order_no) => {
 
 			// Check if the response is empty
 			if (response.data !== null && Object.keys(response.data).length > 0) {
-					resolve(response.data)
+				resolve(response.data);
 			}
 		} catch (error) {
 			console.error(error);
@@ -222,22 +221,23 @@ export const getOrderStatus = (order_no) => {
 			// Handle the error here
 		}
 	});
-	
 };
 
-export const readFirebaseDatabase = (path = '/') => {
+export const readFirebaseDatabase = (path = "/") => {
 	const dbRef = ref(getDatabase());
-	get(child(dbRef, path)).then((snapshot) => {
-		if (snapshot.exists()) {
-			console.log("Firebase Data : ",snapshot.val());
-			return snapshot.val();
-		} else {
-			return {};
-			console.log("No data available");
-		}
-	}).catch((error) => {
-		console.error(error);
-	});
+	return get(child(dbRef, path));
+	// .then((snapshot) => {
+	// 	if (snapshot.exists()) {
+	// 		console.log("Firebase Data : ", snapshot.val());
+	// 		snapshot.val();
+	// 	} else {
+	// 		console.log("No data available");
+	// 		return {};
+	// 	}
+	// })
+	// .catch((error) => {
+	// 	console.error(error);
+	// });
 };
 
 export default util;
