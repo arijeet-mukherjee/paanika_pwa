@@ -2,6 +2,7 @@ import axios from "axios";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getDatabase, ref, child, get } from "firebase/database";
 var crypto = require("crypto");
 
 const characters =
@@ -222,6 +223,21 @@ export const getOrderStatus = (order_no) => {
 		}
 	});
 	
+};
+
+export const readFirebaseDatabase = (path = '/') => {
+	const dbRef = ref(getDatabase());
+	get(child(dbRef, path)).then((snapshot) => {
+		if (snapshot.exists()) {
+			console.log("Firebase Data : ",snapshot.val());
+			return snapshot.val();
+		} else {
+			return {};
+			console.log("No data available");
+		}
+	}).catch((error) => {
+		console.error(error);
+	});
 };
 
 export default util;

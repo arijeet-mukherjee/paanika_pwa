@@ -1,9 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./landing.css";
 import { useSelector } from "react-redux";
+import {readFirebaseDatabase, initializeFirebase} from "../../util/util";
 
 function ProfileLanding(props) {
 	const state = useSelector((state) => state);
+	useEffect(()=>{
+		initializeFirebase();
+		readFirebaseDatabase();
+	},[]);
 	return (
 		<div className="outerbox">
 			<div className="details">
