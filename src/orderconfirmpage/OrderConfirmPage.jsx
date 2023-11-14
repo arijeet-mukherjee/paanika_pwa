@@ -85,14 +85,12 @@ function OrderConfirmPage(props) {
 	}
 
 	function setToFirebase(bankAndDatabaseOrderIdmap) {
-
 		const db = getDatabase();
 		push(ref(db), bankAndDatabaseOrderIdmap);
 	}
 
 	const placeOrder = async () => {
-		return new Promise(async (resolve, reject)=>{
-
+		return new Promise(async (resolve, reject) => {
 			fdata["delivery_street_aadress"] = fdata.billing_street_aadress;
 			fdata["billing_phone"] = fdata.billing_phone.toString();
 			fdata["delivery_phone"] = fdata.delivery_phone.toString();
@@ -105,10 +103,11 @@ function OrderConfirmPage(props) {
 					clientsecret: "sk_1234",
 					clientid: "1234",
 					"Access-Control-Allow-Origin": "*",
-					"Authorization": state.user &&
+					Authorization:
+						state.user &&
 						state.user.currentUser &&
 						state.user.currentUser.token &&
-						`Bearer ${state.user.currentUser.token}`
+						`Bearer ${state.user.currentUser.token}`,
 				},
 				data: fdata ? fdata : "",
 			};
@@ -116,16 +115,31 @@ function OrderConfirmPage(props) {
 			await axios(config)
 				.then((response) => response.data)
 				.then((data) => {
-					console.log(data, "Order placed");
 					resolve(data);
-
 				})
 				.catch((e) => {
-					console.log("result", e)
 					reject(e);
 				});
 		});
 	};
+
+	const [buttonDisable, setButtonDisable] = useState(true);
+
+	function redirect_checker() {
+		if (
+			fdata.billing_state &&
+			fdata.billing_first_name &&
+			fdata.billing_city &&
+			fdata.billing_country &&
+			fdata.billing_phone &&
+			fdata.billing_street_aadress &&
+			fdata.billing_postcode
+		) {
+			setButtonDisable(false);
+		}
+	}
+
+	useEffect(() => redirect_checker(), [fdata]);
 
 	const getPaymentConfirmation = async () => {
 		if (responseData === null) {
@@ -137,30 +151,33 @@ function OrderConfirmPage(props) {
 				// Check if the response is empty
 				if (response.data !== null && Object.keys(response.data).length > 0) {
 					setResponseData(response.data);
-					console.log(response.data);
 					setIsFetching(false);
-					if(response.data && response.data.success){
-						placeOrder().then((data) => {
-							const orderId = (data && data.data && data.data.order_id) || '';
-							if(orderId === '') {
+					if (response.data && response.data.success) {
+						placeOrder()
+							.then((data) => {
+								const orderId = (data && data.data && data.data.order_id) || "";
+								if (orderId === "") {
+									response.data.success = false;
+								} else {
+									const savePaymentDataToFirebase = {
+										payment: {},
+									};
+									savePaymentDataToFirebase.payment[orderId] = {
+										...response.data,
+									};
+									const bankAndDatabaseOrderIdmap = {};
+									bankAndDatabaseOrderIdmap[orderId] = randomOrder;
+									setToFirebase(bankAndDatabaseOrderIdmap);
+									setToFirebase(savePaymentDataToFirebase);
+									history.push({ pathname: "paymentstatus", state: response });
+								}
+							})
+							.catch((e) => {
 								response.data.success = false;
-							}
-							else {
-							const savePaymentDataToFirebase = {
-								payment : {}
-							};	
-							savePaymentDataToFirebase.payment[orderId] = {...response.data};
-							const bankAndDatabaseOrderIdmap = {
-							};
-							bankAndDatabaseOrderIdmap[orderId]  = randomOrder;
-							setToFirebase(bankAndDatabaseOrderIdmap);
-							setToFirebase(savePaymentDataToFirebase);
-							history.push({ pathname: "paymentstatus", state: response });
-						}
-						}).catch((e)=>{
-							response.data.success = false;
-							history.push({ pathname: "paymentstatus", state: response });
-						});
+								history.push({ pathname: "paymentstatus", state: response });
+							});
+					} else {
+						history.push({ pathname: "paymentstatus", state: response });
 					}
 				} else {
 					// If the response is empty, recursively call the getPaymentConfirmation function
@@ -174,8 +191,6 @@ function OrderConfirmPage(props) {
 			}
 		}
 	};
-
-	
 
 	const loadHandler = () => {
 		if (!cartObject.token) {
@@ -209,10 +224,9 @@ function OrderConfirmPage(props) {
 		)
 			.then((dt) => {
 				setCountry(dt.data);
-				console.log(dt.data, "countries")
 			})
 			.catch((e) => {
-				console.log("getAllCountries error", e);
+				console.log(e);
 			});
 	};
 
@@ -265,7 +279,7 @@ function OrderConfirmPage(props) {
 						<input
 							name="merchant_id"
 							id="merchant_id"
-							value="2531097"
+							value="2537849"
 							style={{ display: "none" }}
 						/>
 						<input
@@ -440,6 +454,7 @@ function OrderConfirmPage(props) {
 							TYPE="submit"
 							value="Checkout"
 							class="btn-order"
+							disabled={buttonDisable}
 							onClick={loadHandler}
 						/>
 					</form>

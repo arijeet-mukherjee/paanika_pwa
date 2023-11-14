@@ -12,17 +12,14 @@ function Order(props) {
 	const state = useSelector((state) => state);
 	const [userOrder, setUserOrder] = useState([]);
 	const [firebaseData, setFirebaseData] = useState({});
-	console.log(firebaseData);
 
 	useEffect(() => {
 		initializeFirebase();
 		readFirebaseDatabase()
 			.then((snapshot) => {
 				if (snapshot.exists()) {
-					console.log("Firebase Data From order page : ", snapshot.val());
 					setFirebaseData(snapshot.val());
 				} else {
-					console.log("No data available");
 					setFirebaseData({});
 				}
 			})
@@ -46,11 +43,9 @@ function Order(props) {
 			header
 		)
 			.then((dt) => {
-				console.log(dt, "User Orders");
 				setUserOrder(dt.data && dt.data.reverse());
 			})
 			.catch((e) => {
-				//console.log('this error')
 				console.log(e);
 			});
 	}

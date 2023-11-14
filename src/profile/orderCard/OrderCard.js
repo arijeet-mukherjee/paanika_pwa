@@ -7,7 +7,6 @@ import util from "../../util/util";
 
 function OrderCard({ dbDetail, fbDetail }) {
 	let status = dbDetail && dbDetail.order_status;
-	console.log(fbDetail);
 
 	function fetchPaymentId(orderId, fbDetail) {
 		let paymentReferenceId = "";
