@@ -83,8 +83,6 @@ const util = {
 	},
 };
 
-//https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction  http://localhost:3000/#/
-
 function getAlgorithm(keyBase64) {
 	var key = Buffer.from(keyBase64, "base64");
 	switch (key.length) {
@@ -117,8 +115,8 @@ export const decrypt = function(messagebase64, keyBase64, ivBase64) {
 };
 
 export const initiatePayment = function(amount = 0, orderId) {
-	const workingKey = "919F32B22451315A4AFD28056870B0ED"; //Put in the 32-Bit key shared by CCAvenues.
-	const accessCode = "AVDZ74KF39AL75ZDLA"; //Put in the Access Code shared by CCAvenues.
+	const workingKey = "7E50583154165783B1285F6F22430537"; //Put in the 32-Bit key shared by CCAvenues.
+	const accessCode = "AVXW28KK44AF63WXFA"; //Put in the Access Code shared by CCAvenues.
 	let md5 = crypto
 		.createHash("md5")
 		.update(workingKey)
@@ -164,7 +162,7 @@ export const initiatePayment = function(amount = 0, orderId) {
 	var config = {
 		method: "POST",
 		url:
-			"https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction",
+			"https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction",
 		headers: header,
 		data: formData ? formData : "",
 	};
@@ -226,18 +224,6 @@ export const getOrderStatus = (order_no) => {
 export const readFirebaseDatabase = (path = "/") => {
 	const dbRef = ref(getDatabase());
 	return get(child(dbRef, path));
-	// .then((snapshot) => {
-	// 	if (snapshot.exists()) {
-	// 		console.log("Firebase Data : ", snapshot.val());
-	// 		snapshot.val();
-	// 	} else {
-	// 		console.log("No data available");
-	// 		return {};
-	// 	}
-	// })
-	// .catch((error) => {
-	// 	console.error(error);
-	// });
 };
 
 export default util;

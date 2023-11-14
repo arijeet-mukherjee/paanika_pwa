@@ -31,12 +31,10 @@ function Header(props) {
 
 		Util.apiCall("POST", Util.baseUrl, `customer_logout`, header)
 			.then((dt) => {
-				console.log(dt, "sucess wala");
 				props.removeCurrentUser(null);
 				window.alert("Successfully Logged Out!");
 			})
 			.catch((e) => {
-				//console.log('this error')
 				console.log(e);
 			});
 	}
