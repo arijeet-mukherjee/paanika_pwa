@@ -43,8 +43,8 @@ function Header(props) {
 		<header>
 			<nav className="navbar fixed-top navbar-expand-lg navbar-light bg-white padHeader">
 				<div className="container-fluid">
-					<Link className="navbar-brand" to="/" onClick={changeNav}>
-						<img height="46px" width="160px" src={Image} alt="Paanika" />
+					<Link to="/" onClick={changeNav}>
+						<img height="60px" width="215px" src={Image} alt="Paanika" />
 					</Link>
 
 					<div
