@@ -160,7 +160,6 @@ function ProductList() {
 				? `&priceFrom=${fromPrice}&priceTo=${toPrice}`
 				: "";
 
-		console.log("queryParam", queryParam, queryParamPriceRange);
 		Util.apiCall(
 			"GET",
 			Util.baseUrl,
