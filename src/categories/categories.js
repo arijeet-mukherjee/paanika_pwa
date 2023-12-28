@@ -63,21 +63,21 @@ function ProductList() {
 						{categories.map((v, i) => {
 							return (
 								<div
-									key={i}
+									key={v.id}
 									onClick={() => {
 										setIsLoading(true);
-										setCategoryId(i + 1);
-										getallproducts(undefined, undefined, undefined, i + 1);
-										routeChange("/category/" + (i + 1));
+										setCategoryId(v.id);
+										getallproducts(undefined, undefined, undefined, v.id);
+										routeChange("/category/" + v.id);
 										// window.location.href = window.location.href;
 										// window.location.reload();
 									}}
 									className={
 										"btn btn-sm btn-outline-dark rounded-pill me-2 mb-2" +
-										(categoryId - 1 === i ? " active" : "")
+										(categoryId === v.id ? " active" : "")
 									}
 								>
-									{v}
+									{v.name}
 								</div>
 							);
 						})}
@@ -157,8 +157,10 @@ function ProductList() {
 		let queryParam = i ? `&page=${i + 1}` : "";
 		let queryParamPriceRange =
 			fromPrice !== undefined && toPrice !== undefined
-				? `&price_from=${fromPrice}&price_to=${toPrice}`
+				? `&priceFrom=${fromPrice}&priceTo=${toPrice}`
 				: "";
+
+		console.log("queryParam", queryParam, queryParamPriceRange);
 		Util.apiCall(
 			"GET",
 			Util.baseUrl,
@@ -221,7 +223,7 @@ function ProductList() {
 
 	if (allcategories) {
 		const tempArr = Array.from(allcategories.data, (_, i) => {
-			return _.name;
+			return { name: _.name, id: _.id };
 		});
 		categoriesData = Array.from(allcategories.data);
 		categories = tempArr;
